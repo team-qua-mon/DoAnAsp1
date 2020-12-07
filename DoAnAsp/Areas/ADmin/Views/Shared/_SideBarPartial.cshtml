@@ -1,0 +1,87 @@
+﻿<div id="sidebar" class="active">
+    <div class="sidebar-wrapper active">
+        <div class="sidebar-header">
+            <img src="~/Admin/assets/images/logo.svg" alt="" srcset="" />
+        </div>
+        <div class="sidebar-menu">
+            <ul class="menu">
+                <li class="sidebar-title">Main Menu</li>
+
+                <li class="sidebar-item active">
+                    <a asp-controller="SanPham" asp-action="index" class="sidebar-link">
+                        <i data-feather="home" width="20"></i>
+                        <span>Trang chủ</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item has-sub">
+                    <a class="sidebar-link">
+                        <i data-feather="triangle" width="20"></i>
+                        <span> Quản lý Sản Phẩm</span>
+                    </a>
+
+                    <ul class="submenu">
+                        <li>
+                            <a asp-controller="SanPham" asp-action="index">Danh sách sản phẩm</a>
+                        </li>
+                        <li>
+                            <a asp-controller="SanPham" asp-action="Create">Thêm sản phẩm</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="sidebar-item has-sub">
+                    <a class="sidebar-link">
+                        <i data-feather="briefcase" width="20"></i>
+                        <span>Quản lý Loại Sản Phẩm</span>
+                    </a>
+
+                    <ul class="submenu">
+                        <li>
+                            <a asp-controller="LoaiSP" asp-action="index">Danh sách Loại Sản Phẩm</a>
+                        </li>
+                        <li>
+                            <a asp-controller="LoaiSP" asp-action="Create">Thêm Loại Sản Phẩm</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item has-sub">
+                    <a class="sidebar-link">
+                        <i data-feather="user" width="20"></i>
+                        <span>Quản lý người dùng</span>
+                    </a>
+
+                    <ul class="submenu">
+                        <li>
+                            <a asp-controller="NguoiDung" asp-action="index">Danh sách tài khoản</a>
+                        </li>
+                        <li>
+                            <a asp-controller="NguoiDung" asp-action="Create">Thêm tài khoản</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item has-sub">
+                    <a class="sidebar-link">
+                        <i data-feather="user" width="20"></i>
+                        <span>Quản lý khuyến mãi</span>
+                    </a>
+
+                    <ul class="submenu">
+                        <li>
+                            <a asp-controller="KhuyenMai" asp-action="index">Danh sách khuyến mãi</a>
+                        </li>
+                        <li>
+                            <a asp-controller="KhuyenMai" asp-action="Create">Thêm khuyến mãi</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+            </ul>
+        </div>
+        <button class="sidebar-toggler btn x">
+            <i data-feather="x"></i>
+        </button>
+    </div>
+</div>

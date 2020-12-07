@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    @await Html.PartialAsync("_HeadPartial.cshtml")
+</head>
+<body>
+    <div id="app">
+        @await Html.PartialAsync("_SideBarPartial.cshtml")
+        <div id="main">
+            @await Html.PartialAsync("_HeaderPartial.cshtml")
+            @RenderBody()
+            @await Html.PartialAsync("_FooterPartial.cshtml")
+        </div>
+    </div>
+    <script src="~/Admin/assets/js/feather-icons/feather.min.js"></script>
+    <script src="~/Admin/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="~/Admin/assets/js/app.js"></script>
+
+    <script src="~/Admin/assets/vendors/chartjs/Chart.min.js"></script>
+    <script src="~/Admin/assets/vendors/apexcharts/apexcharts.min.js"></script>
+    <script src="~/Admin/assets/js/pages/dashboard.js"></script>
+
+    <script src="~/Admin/assets/js/main.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

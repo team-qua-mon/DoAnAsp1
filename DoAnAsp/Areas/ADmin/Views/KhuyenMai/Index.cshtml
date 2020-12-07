@@ -1,0 +1,71 @@
+﻿@model IEnumerable<DoAnAsp.Areas.ADmin.Models.KhuyenMaiModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenKM)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoaiKM)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GiaTri)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayBD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayKT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SanPham)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenKM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoaiKM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiaTri)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayBD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayKT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrangThai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SanPham.TenSP)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MaKM">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MaKM">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MaKM">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
