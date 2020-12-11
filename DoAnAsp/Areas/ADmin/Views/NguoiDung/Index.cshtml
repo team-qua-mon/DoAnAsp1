@@ -57,46 +57,46 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Ho)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.TenLot)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.TenND)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.GioiTinh)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.HinhAnh)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.SDT)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Andress)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.UserName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.PassWord)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.TrangThai)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.PhanQuyens.MAQuyen)
-                                </td>
-                                <td>
-                                    <a class="btn btn-danger round" asp-action="Edit" asp-route-id="@item.MaND">Edit</a> |
-                                    <a class="btn btn-danger round" asp-action="Details" asp-route-id="@item.MaND">Details</a> |
-                                    <a class="btn btn-danger round" asp-action="Delete" asp-route-id="@item.MaND">Delete</a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Ho)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TenLot)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TenND)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.GioiTinh)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.HinhAnh)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SDT)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Andress)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PassWord)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TrangThai)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PhanQuyens.TenQuyen)
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger round" asp-action="Edit" asp-route-id="@item.MaND">Edit</a> |
+                                        <a class="btn btn-danger round" asp-action="Details" asp-route-id="@item.MaND">Details</a> |
+                                        <a class="btn btn-danger round" asp-action="Delete" asp-route-id="@item.MaND">Delete</a>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>

@@ -7,14 +7,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoAnAsp.Areas.ADmin.Data;
 using DoAnAsp.Areas.ADmin.Models;
-
+using Microsoft.AspNetCore.Http;
+using System.IO;
 namespace DoAnAsp.Areas.ADmin.Controllers
 {
     [Area("ADmin")]
     public class SanPhamController : Controller
     {
         private readonly DPContext _context;
-
         public SanPhamController(DPContext context)
         {
             _context = context;
@@ -49,7 +49,8 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // GET: ADmin/SanPham/Create
         public IActionResult Create()
         {
-            ViewData["MaLoaiSP"] = new SelectList(_context.LoaiSPs, "MaLoaiSP", "MaLoaiSP");
+            ViewBag.ListLSP = _context.LoaiSPs.ToList();
+            //ViewData["MaLoaiSP"] = new SelectList(_context.LoaiSPs, "MaLoaiSP", "MaLoaiSP");
             return View();
         }
 
@@ -58,15 +59,27 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaSP,TenSP,Gia,Soluong,HinhAnh,ManHinh,HDH,CameraTrc,CameraSau,CPU,RAM,ROM,Pin,SoSao,MoTa,TrangThai,MaLoaiSP")] SanPhamModel sanPhamModel)
+        public async Task<IActionResult> Create([Bind("MaSP,TenSP,Gia,Soluong,HinhAnh,ManHinh,HDH,CameraTrc,CameraSau,CPU,RAM,ROM,Pin,SoSao,MoTa,TrangThai,MaLoaiSP")] SanPhamModel sanPhamModel, IFormFile ful)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(sanPhamModel);
                 await _context.SaveChangesAsync();
+                var path = Path.Combine(
+                    Directory.GetCurrentDirectory(), "wwwroot/Admin/ImgPro",
+                    sanPhamModel.MaSP + "." + ful.FileName.Split(".")
+                    [ful.FileName.Split(".").Length - 1]);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await ful.CopyToAsync(stream);
+                }
+                sanPhamModel.HinhAnh = sanPhamModel.MaSP + "." + ful.FileName.Split(".")
+                    [ful.FileName.Split(".").Length - 1];
+                _context.Update(sanPhamModel);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MaLoaiSP"] = new SelectList(_context.LoaiSPs, "MaLoaiSP", "MaLoaiSP", sanPhamModel.MaLoaiSP);
+            //ViewData["MaLoaiSP"] = new SelectList(_context.LoaiSPs, "MaLoaiSP", "MaLoaiSP", sanPhamModel.MaLoaiSP);
             return View(sanPhamModel);
         }
 
