@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoAnAsp.Areas.ADmin.Data;
 using DoAnAsp.Areas.ADmin.Models;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace DoAnAsp.Areas.ADmin.Controllers
 {
@@ -55,11 +57,23 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaLoaiSP,TenLSP,Img,Mota")] LoaiSPModelcs loaiSPModelcs)
+        public async Task<IActionResult> Create([Bind("MaLoaiSP,TenLSP,Img,Mota")] LoaiSPModelcs loaiSPModelcs, IFormFile ful)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(loaiSPModelcs);
+                await _context.SaveChangesAsync();
+                var path = Path.Combine(
+                    Directory.GetCurrentDirectory(), "wwwroot/Admin/ImgLSP",
+                    loaiSPModelcs.MaLoaiSP + "." + ful.FileName.Split(".")
+                    [ful.FileName.Split(".").Length - 1]);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await ful.CopyToAsync(stream);
+                }
+                loaiSPModelcs.Img = loaiSPModelcs.MaLoaiSP + "." + ful.FileName.Split(".")
+                    [ful.FileName.Split(".").Length - 1];
+                _context.Update(loaiSPModelcs);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
