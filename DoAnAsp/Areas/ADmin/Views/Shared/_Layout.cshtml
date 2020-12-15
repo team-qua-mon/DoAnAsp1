@@ -2,6 +2,7 @@
 
 <html>
 <head>
+
     @await Html.PartialAsync("_HeadPartial.cshtml")
 </head>
 <body>
@@ -20,8 +21,11 @@
     <script src="~/Admin/assets/vendors/chartjs/Chart.min.js"></script>
     <script src="~/Admin/assets/vendors/apexcharts/apexcharts.min.js"></script>
     <script src="~/Admin/assets/js/pages/dashboard.js"></script>
-
     <script src="~/Admin/assets/js/main.js"></script>
+
+    <script src="~/lib/ckeditor5/build/ckeditor.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
