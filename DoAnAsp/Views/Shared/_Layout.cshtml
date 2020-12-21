@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
     @await Html.PartialAsync("_HeadPartial.cshtml")
+    @RenderSection("CSS", required: false)
 </head>
 <body>
     @await Html.PartialAsync("_HeaderPartial.cshtml")
     @RenderBody()
     @await Html.PartialAsync("_FooterPartial.cshtml")
     @RenderSection("Scripts", required: false)
+    @RenderSection("JS", required: false)
 </body>
 </html>

@@ -56,7 +56,12 @@ namespace DoAnAsp
                 endpoints.MapAreaControllerRoute(
                 name: "MyArea",
                 areaName: "Admin",
-                pattern: "Admin/{controller=LoaiSP}/{action=Index}/{id?}");
+                pattern: "Admin/{controller=HomeAdmin}/{action=Index}/{id?}");
+
+               // endpoints.MapControllerRoute(
+               //name: "areas",
+               //pattern: "{area:exists}/{controller=HomeAdmin}/{action=Index}/{id?}"
+               //);
 
                 endpoints.MapControllerRoute(
                     name: "default",
