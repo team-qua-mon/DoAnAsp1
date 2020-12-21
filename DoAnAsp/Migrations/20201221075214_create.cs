@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DoAnAsp.Migrations
 {
@@ -12,9 +13,9 @@ namespace DoAnAsp.Migrations
                 {
                     MaLoaiSP = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TenLSP = table.Column<string>(nullable: true),
-                    Img = table.Column<string>(nullable: true),
-                    Mota = table.Column<string>(nullable: true)
+                    TenLSP = table.Column<string>(maxLength: 20, nullable: false),
+                    Img = table.Column<string>(nullable: false),
+                    Mota = table.Column<string>(maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,8 +28,8 @@ namespace DoAnAsp.Migrations
                 {
                     MAQuyen = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TenQuyen = table.Column<string>(nullable: true),
-                    ChiTiet = table.Column<string>(nullable: true)
+                    TenQuyen = table.Column<string>(nullable: false),
+                    ChiTiet = table.Column<string>(maxLength: 200, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -41,20 +42,20 @@ namespace DoAnAsp.Migrations
                 {
                     MaSP = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TenSP = table.Column<string>(nullable: false),
-                    Gia = table.Column<int>(nullable: false),
+                    TenSP = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Gia = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Soluong = table.Column<int>(nullable: false),
-                    HinhAnh = table.Column<string>(nullable: true),
-                    ManHinh = table.Column<string>(nullable: true),
-                    HDH = table.Column<string>(nullable: true),
-                    CameraTrc = table.Column<string>(nullable: true),
-                    CameraSau = table.Column<string>(nullable: true),
-                    CPU = table.Column<string>(nullable: true),
-                    RAM = table.Column<string>(nullable: true),
-                    ROM = table.Column<string>(nullable: true),
-                    Pin = table.Column<string>(nullable: true),
+                    HinhAnh = table.Column<string>(nullable: false),
+                    ManHinh = table.Column<string>(nullable: false),
+                    HDH = table.Column<string>(nullable: false),
+                    CameraTrc = table.Column<string>(nullable: false),
+                    CameraSau = table.Column<string>(nullable: false),
+                    CPU = table.Column<string>(nullable: false),
+                    RAM = table.Column<string>(nullable: false),
+                    ROM = table.Column<string>(nullable: false),
+                    Pin = table.Column<string>(nullable: false),
                     SoSao = table.Column<int>(nullable: false),
-                    MoTa = table.Column<string>(nullable: true),
+                    MoTa = table.Column<string>(nullable: false),
                     TrangThai = table.Column<int>(nullable: false),
                     MaLoaiSP = table.Column<int>(nullable: false)
                 },
@@ -75,15 +76,15 @@ namespace DoAnAsp.Migrations
                 {
                     MaND = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Ho = table.Column<string>(nullable: true),
-                    TenLot = table.Column<string>(nullable: true),
-                    TenND = table.Column<string>(nullable: true),
-                    GioiTinh = table.Column<string>(nullable: true),
-                    HinhAnh = table.Column<string>(nullable: true),
-                    SDT = table.Column<string>(nullable: true),
-                    Andress = table.Column<string>(nullable: true),
-                    UserName = table.Column<string>(nullable: true),
-                    PassWord = table.Column<string>(nullable: true),
+                    Ho = table.Column<string>(maxLength: 20, nullable: false),
+                    TenLot = table.Column<string>(maxLength: 20, nullable: false),
+                    TenND = table.Column<string>(maxLength: 20, nullable: false),
+                    GioiTinh = table.Column<string>(nullable: false),
+                    HinhAnh = table.Column<string>(nullable: false),
+                    SDT = table.Column<string>(maxLength: 20, nullable: false),
+                    Andress = table.Column<string>(maxLength: 300, nullable: false),
+                    UserName = table.Column<string>(nullable: false),
+                    PassWord = table.Column<string>(nullable: false),
                     TrangThai = table.Column<int>(nullable: false),
                     MAQuyen = table.Column<int>(nullable: false)
                 },
@@ -103,11 +104,10 @@ namespace DoAnAsp.Migrations
                 columns: table => new
                 {
                     MaKM = table.Column<int>(nullable: false),
-                    TenKM = table.Column<string>(nullable: true),
-                    LoaiKM = table.Column<string>(nullable: true),
+                    TenKM = table.Column<string>(maxLength: 20, nullable: false),
                     GiaTri = table.Column<int>(nullable: false),
-                    NgayBD = table.Column<string>(nullable: true),
-                    NgayKT = table.Column<string>(nullable: true),
+                    NgayBD = table.Column<DateTime>(nullable: false),
+                    NgayKT = table.Column<DateTime>(nullable: false),
                     TrangThai = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -153,12 +153,12 @@ namespace DoAnAsp.Migrations
                 {
                     MaHD = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NgayLap = table.Column<string>(nullable: true),
-                    NguoiNhan = table.Column<string>(nullable: true),
-                    SDTNgNhan = table.Column<string>(nullable: true),
-                    Andress = table.Column<string>(nullable: true),
-                    PhuongThucThanhToan = table.Column<string>(nullable: true),
-                    TongTien = table.Column<int>(nullable: false),
+                    NgayLap = table.Column<DateTime>(nullable: false),
+                    NguoiNhan = table.Column<string>(nullable: false),
+                    SDTNgNhan = table.Column<string>(maxLength: 20, nullable: false),
+                    Andress = table.Column<string>(maxLength: 300, nullable: false),
+                    PhuongThucThanhToan = table.Column<string>(maxLength: 300, nullable: false),
+                    TongTien = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     TrangThai = table.Column<int>(nullable: false),
                     ChiTietHoaDonsMaHD = table.Column<int>(nullable: true),
                     ChiTietHoaDonsMaSP = table.Column<int>(nullable: true),

@@ -16,9 +16,6 @@
                 @Html.DisplayNameFor(model => model.TenKM)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LoaiKM)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.GiaTri)
             </th>
             <th>
@@ -43,9 +40,6 @@
                 @Html.DisplayFor(modelItem => item.TenKM)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LoaiKM)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.GiaTri)
             </td>
             <td>
@@ -58,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.TrangThai)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SanPham.TenSP)
+                @Html.DisplayFor(modelItem => item.SanPham.CPU)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.MaKM">Edit</a> |

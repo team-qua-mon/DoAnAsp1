@@ -4,12 +4,13 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Thêm tài khoản</h1>
+<h1>Create</h1>
 
+<h4>NguoiDungModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Ho" class="control-label"></label>
@@ -31,16 +32,11 @@
                 <input asp-for="GioiTinh" class="form-control" />
                 <span asp-validation-for="GioiTinh" class="text-danger"></span>
             </div>
-            <div class="custom-file">
-                <input accept="*.png|*.jpg|*.jpeg" type="file" class="custom-file-input" id="ful" name="ful" />
-                <label class="custom-file-label" for="ful">
-                    Chon Hinh
-                </label>
-            </div>
             <div class="form-group">
-                <img id="imgPre" src="~/Admin/ImgPro/TS001.jpg" alt="noimage" class="img-thumbnail" />
+                <label asp-for="HinhAnh" class="control-label"></label>
+                <input asp-for="HinhAnh" class="form-control" />
+                <span asp-validation-for="HinhAnh" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 <label asp-for="SDT" class="control-label"></label>
                 <input asp-for="SDT" class="form-control" />
@@ -68,7 +64,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="MAQuyen" class="control-label"></label>
-                <select asp-for="MAQuyen" class="form-control" asp-items="@(new SelectList(ViewBag.ListQuuyen,"MAQuyen","TenQuyen"))"></select>
+                <select asp-for="MAQuyen" class ="form-control" asp-items="ViewBag.MAQuyen"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -83,19 +79,4 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-        function readURL(input, idImg) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $(idImg).attr('src', e.target.result);
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-        $("#ful").change(function () {
-            readURL(this, '#imgPre');
-        });
-    </script>
 }

@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoAnAsp.Areas.ADmin.Data;
 using DoAnAsp.Areas.ADmin.Models;
-using System.IO;
-using Microsoft.AspNetCore.Http;
 
 namespace DoAnAsp.Areas.ADmin.Controllers
 {
@@ -51,8 +49,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // GET: ADmin/NguoiDung/Create
         public IActionResult Create()
         {
-            ViewBag.ListQuuyen = _context.PhanQuyens.ToList();
-            //ViewData["MAQuyen"] = new SelectList(_context.PhanQuyens, "MAQuyen", "MAQuyen");
+            ViewData["MAQuyen"] = new SelectList(_context.PhanQuyens, "MAQuyen", "TenQuyen");
             return View();
         }
 
@@ -61,27 +58,15 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaND,Ho,TenLot,TenND,GioiTinh,HinhAnh,SDT,Andress,UserName,PassWord,TrangThai,MAQuyen")] NguoiDungModel nguoiDungModel, IFormFile ful)
+        public async Task<IActionResult> Create([Bind("MaND,Ho,TenLot,TenND,GioiTinh,HinhAnh,SDT,Andress,UserName,PassWord,TrangThai,MAQuyen")] NguoiDungModel nguoiDungModel)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(nguoiDungModel);
                 await _context.SaveChangesAsync();
-                var path = Path.Combine(
-                    Directory.GetCurrentDirectory(), "wwwroot/Admin/ImgNgdung",
-                    nguoiDungModel.MaND + "." + ful.FileName.Split(".")
-                    [ful.FileName.Split(".").Length - 1]);
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    await ful.CopyToAsync(stream);
-                }
-                nguoiDungModel.HinhAnh = nguoiDungModel.MaND + "." + ful.FileName.Split(".")
-                    [ful.FileName.Split(".").Length - 1];
-                _context.Update(nguoiDungModel);
-                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["MAQuyen"] = new SelectList(_context.PhanQuyens, "MAQuyen", "MAQuyen", nguoiDungModel.MAQuyen);
+            ViewData["MAQuyen"] = new SelectList(_context.PhanQuyens, "MAQuyen", "TenQuyen", nguoiDungModel.MAQuyen);
             return View(nguoiDungModel);
         }
 
@@ -98,7 +83,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             {
                 return NotFound();
             }
-            ViewData["MAQuyen"] = new SelectList(_context.PhanQuyens, "MAQuyen", "MAQuyen", nguoiDungModel.MAQuyen);
+            ViewData["MAQuyen"] = new SelectList(_context.PhanQuyens, "MAQuyen", "TenQuyen", nguoiDungModel.MAQuyen);
             return View(nguoiDungModel);
         }
 
@@ -134,7 +119,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MAQuyen"] = new SelectList(_context.PhanQuyens, "MAQuyen", "MAQuyen", nguoiDungModel.MAQuyen);
+            ViewData["MAQuyen"] = new SelectList(_context.PhanQuyens, "MAQuyen", "TenQuyen", nguoiDungModel.MAQuyen);
             return View(nguoiDungModel);
         }
 

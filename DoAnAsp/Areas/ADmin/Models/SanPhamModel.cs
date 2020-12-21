@@ -11,31 +11,72 @@ namespace DoAnAsp.Areas.ADmin.Models
     {
         [Key]
         public int MaSP { get; set; }
-        [Required(ErrorMessage = "Tên sản phẩm không được để trống")]
+
+        [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
         [Display(Name ="Tên sản phẩm")]
+        [StringLength(20)]
+        [Column(TypeName = "nvarchar(20)")]
         public string TenSP { get; set; }
-        [Required(ErrorMessage = "Giá không được để trống")]
+
+        [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
         [Display(Name = "Giá")]
-        public int Gia { get; set; }
-        [Required(ErrorMessage = "Số lượng không được để trống")]
+        [Range(100,1000000)]
+        [DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Gia { get; set; }
+
+        [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
         [Display(Name = "Số lượng")]
         public int Soluong { get; set; }
+
+        [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
         [Display(Name = "Hình ảnh")]
         public string HinhAnh { get; set; }
+
+        [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
         [Display(Name = "Màn hình")]
         public string ManHinh { get; set; }
+
+        [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
+        [Display(Name ="Hệ điều hành")]
         public string HDH { get; set; }
+
+        [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
+        [Display(Name = "Camera trước")]
         public string CameraTrc { get; set; }
+
+        [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
+        [Display(Name = "Camera sau")]
         public string CameraSau { get; set; }
+
+        [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
         public string CPU { get; set; }
+
+        [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
         public string RAM { get; set; }
+
+        [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
         public string ROM { get; set; }
+
+        [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
+        [Display(Name = "PIN")]
         public string Pin { get; set; }
+
+        [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
+        [Display(Name = "Số sao")]
         public int SoSao { get; set; }
+
+        [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
+        [Display(Name = "Mô tả")]
         public string MoTa { get; set; }
+
+
         [Display(Name = "Trạng thái")]
         public int TrangThai { get; set; }
+
         public virtual KhuyenMaiModel KhuyenMai { get; set; }
+
+        [Display(Name = "Loại sản phẩm")]
         public int MaLoaiSP { get; set; }
         [ForeignKey("MaLoaiSP")]
         public virtual LoaiSPModelcs LoaiSPs { get; set; }

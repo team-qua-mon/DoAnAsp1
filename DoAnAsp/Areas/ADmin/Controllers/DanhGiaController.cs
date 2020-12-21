@@ -50,8 +50,8 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // GET: ADmin/DanhGia/Create
         public IActionResult Create()
         {
-            ViewData["MaSP"] = new SelectList(_context.SanPhams, "MaSP", "MaSP");
-            ViewData["MaND"] = new SelectList(_context.NguoiDungs, "MaND", "MaND");
+            ViewData["MaSP"] = new SelectList(_context.SanPhams, "MaSP", "CPU");
+            ViewData["MaND"] = new SelectList(_context.NguoiDungs, "MaND", "Andress");
             return View();
         }
 
@@ -68,8 +68,8 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MaSP"] = new SelectList(_context.SanPhams, "MaSP", "MaSP", danhGiaModel.MaSP);
-            ViewData["MaND"] = new SelectList(_context.NguoiDungs, "MaND", "MaND", danhGiaModel.MaND);
+            ViewData["MaSP"] = new SelectList(_context.SanPhams, "MaSP", "CPU", danhGiaModel.MaSP);
+            ViewData["MaND"] = new SelectList(_context.NguoiDungs, "MaND", "Andress", danhGiaModel.MaND);
             return View(danhGiaModel);
         }
 
@@ -86,8 +86,8 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             {
                 return NotFound();
             }
-            ViewData["MaSP"] = new SelectList(_context.SanPhams, "MaSP", "MaSP", danhGiaModel.MaSP);
-            ViewData["MaND"] = new SelectList(_context.NguoiDungs, "MaND", "MaND", danhGiaModel.MaND);
+            ViewData["MaSP"] = new SelectList(_context.SanPhams, "MaSP", "CPU", danhGiaModel.MaSP);
+            ViewData["MaND"] = new SelectList(_context.NguoiDungs, "MaND", "Andress", danhGiaModel.MaND);
             return View(danhGiaModel);
         }
 
@@ -123,8 +123,8 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MaSP"] = new SelectList(_context.SanPhams, "MaSP", "MaSP", danhGiaModel.MaSP);
-            ViewData["MaND"] = new SelectList(_context.NguoiDungs, "MaND", "MaND", danhGiaModel.MaND);
+            ViewData["MaSP"] = new SelectList(_context.SanPhams, "MaSP", "CPU", danhGiaModel.MaSP);
+            ViewData["MaND"] = new SelectList(_context.NguoiDungs, "MaND", "Andress", danhGiaModel.MaND);
             return View(danhGiaModel);
         }
 

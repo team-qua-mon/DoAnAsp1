@@ -69,7 +69,9 @@ namespace DoAnAsp.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Andress")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
 
                     b.Property<int?>("ChiTietHoaDonsMaHD")
                         .HasColumnType("int");
@@ -77,23 +79,28 @@ namespace DoAnAsp.Migrations
                     b.Property<int?>("ChiTietHoaDonsMaSP")
                         .HasColumnType("int");
 
-                    b.Property<string>("NgayLap")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("NgayLap")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("NguoiDungModelMaND")
                         .HasColumnType("int");
 
                     b.Property<string>("NguoiNhan")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhuongThucThanhToan")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
 
                     b.Property<string>("SDTNgNhan")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
-                    b.Property<int>("TongTien")
-                        .HasColumnType("int");
+                    b.Property<decimal>("TongTien")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("TrangThai")
                         .HasColumnType("int");
@@ -115,17 +122,16 @@ namespace DoAnAsp.Migrations
                     b.Property<int>("GiaTri")
                         .HasColumnType("int");
 
-                    b.Property<string>("LoaiKM")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("NgayBD")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("NgayBD")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NgayKT")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("NgayKT")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("TenKM")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<int>("TrangThai")
                         .HasColumnType("int");
@@ -143,13 +149,18 @@ namespace DoAnAsp.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Img")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Mota")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("TenLSP")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.HasKey("MaLoaiSP");
 
@@ -164,36 +175,50 @@ namespace DoAnAsp.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Andress")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
 
                     b.Property<string>("GioiTinh")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HinhAnh")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ho")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<int>("MAQuyen")
                         .HasColumnType("int");
 
                     b.Property<string>("PassWord")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SDT")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("TenLot")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("TenND")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<int>("TrangThai")
                         .HasColumnType("int");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MaND");
@@ -211,9 +236,11 @@ namespace DoAnAsp.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ChiTiet")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
 
                     b.Property<string>("TenQuyen")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MAQuyen");
@@ -229,39 +256,49 @@ namespace DoAnAsp.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CPU")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CameraSau")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CameraTrc")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Gia")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Gia")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("HDH")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HinhAnh")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MaLoaiSP")
                         .HasColumnType("int");
 
                     b.Property<string>("ManHinh")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MoTa")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Pin")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RAM")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ROM")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SoSao")
@@ -272,7 +309,8 @@ namespace DoAnAsp.Migrations
 
                     b.Property<string>("TenSP")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<int>("TrangThai")
                         .HasColumnType("int");

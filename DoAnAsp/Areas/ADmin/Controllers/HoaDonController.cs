@@ -11,22 +11,22 @@ using DoAnAsp.Areas.ADmin.Models;
 namespace DoAnAsp.Areas.ADmin.Controllers
 {
     [Area("ADmin")]
-    public class HoaDonModelsController : Controller
+    public class HoaDonController : Controller
     {
         private readonly DPContext _context;
 
-        public HoaDonModelsController(DPContext context)
+        public HoaDonController(DPContext context)
         {
             _context = context;
         }
 
-        // GET: ADmin/HoaDonModels
+        // GET: ADmin/HoaDon
         public async Task<IActionResult> Index()
         {
             return View(await _context.HoaDons.ToListAsync());
         }
 
-        // GET: ADmin/HoaDonModels/Details/5
+        // GET: ADmin/HoaDon/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,13 +44,13 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             return View(hoaDonModel);
         }
 
-        // GET: ADmin/HoaDonModels/Create
+        // GET: ADmin/HoaDon/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: ADmin/HoaDonModels/Create
+        // POST: ADmin/HoaDon/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -66,7 +66,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             return View(hoaDonModel);
         }
 
-        // GET: ADmin/HoaDonModels/Edit/5
+        // GET: ADmin/HoaDon/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,7 +82,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             return View(hoaDonModel);
         }
 
-        // POST: ADmin/HoaDonModels/Edit/5
+        // POST: ADmin/HoaDon/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -117,7 +117,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             return View(hoaDonModel);
         }
 
-        // GET: ADmin/HoaDonModels/Delete/5
+        // GET: ADmin/HoaDon/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,7 +135,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             return View(hoaDonModel);
         }
 
-        // POST: ADmin/HoaDonModels/Delete/5
+        // POST: ADmin/HoaDon/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

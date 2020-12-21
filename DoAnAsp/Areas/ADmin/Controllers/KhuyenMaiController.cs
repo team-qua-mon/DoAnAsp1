@@ -49,7 +49,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // GET: ADmin/KhuyenMai/Create
         public IActionResult Create()
         {
-            ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "TenSP");
+            ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "CPU");
             return View();
         }
 
@@ -58,7 +58,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaKM,TenKM,LoaiKM,GiaTri,NgayBD,NgayKT,TrangThai")] KhuyenMaiModel khuyenMaiModel)
+        public async Task<IActionResult> Create([Bind("MaKM,TenKM,GiaTri,NgayBD,NgayKT,TrangThai")] KhuyenMaiModel khuyenMaiModel)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "TenSP", khuyenMaiModel.MaKM);
+            ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "CPU", khuyenMaiModel.MaKM);
             return View(khuyenMaiModel);
         }
 
@@ -83,7 +83,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             {
                 return NotFound();
             }
-            ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "TenSP", khuyenMaiModel.MaKM);
+            ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "CPU", khuyenMaiModel.MaKM);
             return View(khuyenMaiModel);
         }
 
@@ -92,7 +92,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MaKM,TenKM,LoaiKM,GiaTri,NgayBD,NgayKT,TrangThai")] KhuyenMaiModel khuyenMaiModel)
+        public async Task<IActionResult> Edit(int id, [Bind("MaKM,TenKM,GiaTri,NgayBD,NgayKT,TrangThai")] KhuyenMaiModel khuyenMaiModel)
         {
             if (id != khuyenMaiModel.MaKM)
             {
@@ -119,7 +119,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "TenSP", khuyenMaiModel.MaKM);
+            ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "CPU", khuyenMaiModel.MaKM);
             return View(khuyenMaiModel);
         }
 

@@ -13,7 +13,11 @@ namespace DoAnAsp.Areas.ADmin.Models
         public SanPhamModel sanPham { get; set; }
         public int MaHD { get; set; }
         public HoaDonModel hoaDon { get; set; }
+
+        [Display(Name ="Số lượng")]
         public int SoLuong { get; set; }
+
+        [Display(Name ="Đơn giá")]
         public int DonGia { get; set; }
 
     }

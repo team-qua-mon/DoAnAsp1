@@ -50,8 +50,8 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // GET: ADmin/ChiTietHoaDon/Create
         public IActionResult Create()
         {
-            ViewData["MaHD"] = new SelectList(_context.HoaDons, "MaHD", "MaHD");
-            ViewData["MaSP"] = new SelectList(_context.SanPhams, "MaSP", "MaSP");
+            ViewData["MaHD"] = new SelectList(_context.HoaDons, "MaHD", "Andress");
+            ViewData["MaSP"] = new SelectList(_context.SanPhams, "MaSP", "CPU");
             return View();
         }
 
@@ -68,8 +68,8 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MaHD"] = new SelectList(_context.HoaDons, "MaHD", "MaHD", chiTietHoaDonModel.MaHD);
-            ViewData["MaSP"] = new SelectList(_context.SanPhams, "MaSP", "MaSP", chiTietHoaDonModel.MaSP);
+            ViewData["MaHD"] = new SelectList(_context.HoaDons, "MaHD", "Andress", chiTietHoaDonModel.MaHD);
+            ViewData["MaSP"] = new SelectList(_context.SanPhams, "MaSP", "CPU", chiTietHoaDonModel.MaSP);
             return View(chiTietHoaDonModel);
         }
 
@@ -86,8 +86,8 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             {
                 return NotFound();
             }
-            ViewData["MaHD"] = new SelectList(_context.HoaDons, "MaHD", "MaHD", chiTietHoaDonModel.MaHD);
-            ViewData["MaSP"] = new SelectList(_context.SanPhams, "MaSP", "MaSP", chiTietHoaDonModel.MaSP);
+            ViewData["MaHD"] = new SelectList(_context.HoaDons, "MaHD", "Andress", chiTietHoaDonModel.MaHD);
+            ViewData["MaSP"] = new SelectList(_context.SanPhams, "MaSP", "CPU", chiTietHoaDonModel.MaSP);
             return View(chiTietHoaDonModel);
         }
 
@@ -123,8 +123,8 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MaHD"] = new SelectList(_context.HoaDons, "MaHD", "MaHD", chiTietHoaDonModel.MaHD);
-            ViewData["MaSP"] = new SelectList(_context.SanPhams, "MaSP", "MaSP", chiTietHoaDonModel.MaSP);
+            ViewData["MaHD"] = new SelectList(_context.HoaDons, "MaHD", "Andress", chiTietHoaDonModel.MaHD);
+            ViewData["MaSP"] = new SelectList(_context.SanPhams, "MaSP", "CPU", chiTietHoaDonModel.MaSP);
             return View(chiTietHoaDonModel);
         }
 

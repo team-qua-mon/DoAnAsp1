@@ -14,7 +14,10 @@ namespace DoAnAsp.Areas.ADmin.Models
         public NguoiDungModel nguoiDung { get; set; }
         public int MaSP { get; set; }
         public SanPhamModel SanPham { get; set; }
+        [Display(Name ="Bình luận")]
         public string Comment { get; set; }
+
+        [Display(Name = "Số sao")]
         public int SoSao { get; set; }
     }
 }
