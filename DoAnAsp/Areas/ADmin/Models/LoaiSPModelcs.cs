@@ -17,10 +17,6 @@ namespace DoAnAsp.Areas.ADmin.Models
         public string TenLSP { get; set; }
 
         [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
-        [Display(Name = "Hình ảnh")]
-        public string Img { get; set; }
-
-        [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
         [Display(Name = "Mô tả")]
         [StringLength(maximumLength:20,ErrorMessage ="không được dài quá 20 ký tự")]
         public string Mota { get; set; }

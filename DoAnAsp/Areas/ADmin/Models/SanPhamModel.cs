@@ -20,7 +20,7 @@ namespace DoAnAsp.Areas.ADmin.Models
 
         [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
         [Display(Name = "Giá")]
-        [Range(100,1000000)]
+        [Range(100,1000000,ErrorMessage =("Giá phải lớn hơn 100 và nhỏ hơn 1000000"))]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Gia { get; set; }
@@ -29,7 +29,6 @@ namespace DoAnAsp.Areas.ADmin.Models
         [Display(Name = "Số lượng")]
         public int Soluong { get; set; }
 
-        [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
         [Display(Name = "Hình ảnh")]
         public string HinhAnh { get; set; }
 
@@ -66,7 +65,6 @@ namespace DoAnAsp.Areas.ADmin.Models
         [Display(Name = "Số sao")]
         public int SoSao { get; set; }
 
-        [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
         [Display(Name = "Mô tả")]
         public string MoTa { get; set; }
 

@@ -26,13 +26,14 @@ namespace DoAnAsp.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult login([Bind("UserName,PassWord")] NguoiDungModel member)
+        public async Task<IActionResult> login([Bind("UserName,PassWord")] NguoiDungModel member)
         {
             //var y = StringProcessing.CreateMD5Hash("aa");
             var r = _context.NguoiDungs.Where(m => m.UserName == member.UserName && m.PassWord ==
              StringProcessing.CreateMD5Hash(member.PassWord)).ToList();
             if(r.Count==0)
             {
+
                 var urlKcoTK = Url.RouteUrl(new { controller = "Login", action = "loginIndex" });
                 return Redirect(urlKcoTK);
             }
@@ -44,8 +45,8 @@ namespace DoAnAsp.Controllers
             }
             else if(r[0].MAQuyen==2)
             {
-                var urlAdmin = Url.RouteUrl(new { controller = "HomeAdmin", action = "Index", area = "ADmin" });
-                return Redirect(urlAdmin);
+                //var urlAdmin = Url.RouteUrl(new { controller = "HomeAdmin", action = "Index", area = "ADmin" });
+                //return Json( new { isValid = true, roles = "User", url = "" } );
             }
             
             return RedirectToAction("Index", "ShopBanDT");
