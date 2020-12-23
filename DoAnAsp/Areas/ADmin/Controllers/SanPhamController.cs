@@ -9,6 +9,7 @@ using DoAnAsp.Areas.ADmin.Data;
 using DoAnAsp.Areas.ADmin.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using static DoAnAsp.Helper;
 
 namespace DoAnAsp.Areas.ADmin.Controllers
 {
@@ -49,12 +50,25 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         }
 
         // GET: ADmin/SanPham/Create
-        public IActionResult Create()
+ 
+        public async Task<IActionResult> AddAndEdit(int id = 0)
         {
-            //ViewData["MaLoaiSP"] = new SelectList(_context.LoaiSPs, "MaLoaiSP", "TenLSP");
-            ViewBag.ListLSP = _context.LoaiSPs.ToList();
-            return View();
-
+            if(id == 0)
+            {
+                ViewBag.ListLSP = _context.LoaiSPs.ToList();
+                return View(new SanPhamModel()); 
+            }
+            else
+            {
+                var sanphamModel = await _context.SanPhams.FindAsync(id);
+                if(sanphamModel == null)
+                {
+                    return NotFound();
+                }
+                ViewBag.ListLSP = _context.LoaiSPs.ToList();
+                return View(sanphamModel);
+            }
+            
         }
 
         // POST: ADmin/SanPham/Create
@@ -62,28 +76,51 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaSP,TenSP,Gia,Soluong,HinhAnh,ManHinh,HDH,CameraTrc,CameraSau,CPU,RAM,ROM,Pin,SoSao,MoTa,TrangThai,MaLoaiSP")] SanPhamModel sanPhamModel,IFormFile ful)
+        public async Task<IActionResult> AddAndEdit(int id,[Bind("MaSP,TenSP,Gia,Soluong,HinhAnh,ManHinh,HDH,CameraTrc,CameraSau,CPU,RAM,ROM,Pin,SoSao,MoTa,TrangThai,MaLoaiSP")] SanPhamModel sanPhamModel,IFormFile ful)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(sanPhamModel);
-                await _context.SaveChangesAsync();
-                var path = Path.Combine(
-                    Directory.GetCurrentDirectory(), "wwwroot/Admin/ImgPro",
-                    sanPhamModel.MaSP + "." + ful.FileName.Split(".")
-                    [ful.FileName.Split(".").Length - 1]);
-                using (var stream = new FileStream(path, FileMode.Create))
+                if(id == 0)
                 {
-                    await ful.CopyToAsync(stream);
+                    _context.Add(sanPhamModel);
+                    await _context.SaveChangesAsync();
+                    var path = Path.Combine(
+                        Directory.GetCurrentDirectory(), "wwwroot/Admin/ImgPro",
+                        sanPhamModel.MaSP + "." + ful.FileName.Split(".")
+                        [ful.FileName.Split(".").Length - 1]);
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await ful.CopyToAsync(stream);
+                    }
+                    sanPhamModel.HinhAnh = sanPhamModel.MaSP + "." + ful.FileName.Split(".")
+                        [ful.FileName.Split(".").Length - 1];
+                    _context.Update(sanPhamModel);
+                    await _context.SaveChangesAsync();
                 }
-                sanPhamModel.HinhAnh = sanPhamModel.MaSP + "." + ful.FileName.Split(".")
-                    [ful.FileName.Split(".").Length - 1];
-                _context.Update(sanPhamModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                else
+                {
+                    try
+                    {
+                        _context.Update(sanPhamModel);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!SanPhamModelExists(sanPhamModel.MaSP))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                }
+                ViewBag.ListLSP = _context.LoaiSPs.ToList();
+                return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewSanPham", _context.SanPhams.ToList()) });
             }
-            ViewData["MaLoaiSP"] = new SelectList(_context.LoaiSPs, "MaLoaiSP", "TenLSP", sanPhamModel.MaLoaiSP);
-            return View(sanPhamModel);
+            ViewBag.ListLSP = _context.LoaiSPs.ToList();
+            return Json(new { isValid = false, html = Helper.RenderRazorViewToString(this, "AddAndEdit", sanPhamModel) });
         }
 
         // GET: ADmin/SanPham/Edit/5

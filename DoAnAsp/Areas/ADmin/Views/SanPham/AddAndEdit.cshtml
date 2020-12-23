@@ -2,17 +2,16 @@
 
 @{
     ViewData["Title"] = "Create";
+    Layout = null;
 
 }
 
-<h1>Create</h1>
-
-<h4>SanPhamModel</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
+    <div class="col-md-12">
+        <form asp-action="AddAndEdit" asp-route-id="@Model.MaSP" enctype="multipart/form-data" onsubmit="return jQueryAjaxPost(this);" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MaSP" />
             <div class="form-group">
                 <label asp-for="TenSP" class="control-label"></label>
                 <input asp-for="TenSP" class="form-control" />
@@ -97,92 +96,77 @@
                 <select asp-for="MaLoaiSP" class="form-control" asp-items="@(new SelectList(ViewBag.ListLSP,"MaLoaiSP","TenLSP"))"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="AddAndEdit" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-@section scripts
-{
-    <script>
-        function readURL(input, idImg) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+<script>
+    $("#ful").change(function () {
+        readURL(this, '#imgPre');
+    });
+</script>
 
-                reader.onload = function (e) {
-                    $(idImg).attr('src', e.target.result);
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-        $("#ful").change(function () {
-            readURL(this, '#imgPre');
-        });
-    </script>
-    <script>
+<script>
     ClassicEditor
-            .create(document.querySelector('.editor'), {
+        .create(document.querySelector('.editor'), {
 
-                toolbar: {
-                    items: [
-                        'heading',
-                        '|',
-                        'bold',
-                        'italic',
-                        'link',
-                        'bulletedList',
-                        'numberedList',
-                        '|',
-                        'indent',
-                        'outdent',
-                        '|',
-                        'imageUpload',
-                        'blockQuote',
-                        'insertTable',
-                        'mediaEmbed',
-                        'undo',
-                        'redo'
-                    ]
-                },
-                language: 'vi',
-                image: {
-                    toolbar: [
-                        'imageTextAlternative',
-                        'imageStyle:full',
-                        'imageStyle:side'
-                    ]
-                },
-                table: {
-                    contentToolbar: [
-                        'tableColumn',
-                        'tableRow',
-                        'mergeTableCells'
-                    ]
-                },
-                licenseKey: '',
+            toolbar: {
+                items: [
+                    'heading',
+                    '|',
+                    'bold',
+                    'italic',
+                    'link',
+                    'bulletedList',
+                    'numberedList',
+                    '|',
+                    'indent',
+                    'outdent',
+                    '|',
+                    'imageUpload',
+                    'blockQuote',
+                    'insertTable',
+                    'mediaEmbed',
+                    'undo',
+                    'redo'
+                ]
+            },
+            language: 'vi',
+            image: {
+                toolbar: [
+                    'imageTextAlternative',
+                    'imageStyle:full',
+                    'imageStyle:side'
+                ]
+            },
+            table: {
+                contentToolbar: [
+                    'tableColumn',
+                    'tableRow',
+                    'mergeTableCells'
+                ]
+            },
+            licenseKey: '',
 
-            })
-            .then(editor => {
-                window.editor = editor;
-
-
+        })
+        .then(editor => {
+            window.editor = editor;
 
 
 
 
 
 
-            })
-            .catch(error => {
-                console.error('Oops, something went wrong!');
-                console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
-                console.warn('Build id: z767u96a1fl3-8o65j7c6blw0');
-                console.error(error);
-            });
-    </script>
-}
+
+
+        })
+        .catch(error => {
+            console.error('Oops, something went wrong!');
+            console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
+            console.warn('Build id: z767u96a1fl3-8o65j7c6blw0');
+            console.error(error);
+        });
+</script>
 
