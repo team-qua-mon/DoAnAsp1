@@ -66,6 +66,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                     return NotFound();
                 }
                 ViewBag.ListLSP = _context.LoaiSPs.ToList();
+                ViewData["MaSP"] = new SelectList(_context.SanPhams, "MaSP", "TenSP", sanphamModel.MaSP);
                 return View(sanphamModel);
             }
             
@@ -101,6 +102,18 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                 {
                     try
                     {
+                        _context.Update(sanPhamModel);
+                        await _context.SaveChangesAsync();
+                        var path = Path.Combine(
+                        Directory.GetCurrentDirectory(), "wwwroot/Admin/ImgPro",
+                        sanPhamModel.MaSP + "." + ful.FileName.Split(".")
+                        [ful.FileName.Split(".").Length - 1]);
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await ful.CopyToAsync(stream);
+                        }
+                        sanPhamModel.HinhAnh = sanPhamModel.MaSP + "." + ful.FileName.Split(".")
+                            [ful.FileName.Split(".").Length - 1];
                         _context.Update(sanPhamModel);
                         await _context.SaveChangesAsync();
                     }

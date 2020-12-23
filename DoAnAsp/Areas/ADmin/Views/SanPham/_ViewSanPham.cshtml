@@ -130,7 +130,7 @@
                                         @Html.DisplayFor(modelItem => item.LoaiSPs.TenLSP)
                                     </td>
                                     <td>
-                                        <a asp-action="AddAndEdit" asp-route-id="@item.MaSP">Edit</a> |
+                                        <a class="btn btn-danger" onclick="showModal('@Url.Action("AddAndEdit","SanPham",new { id = item.MaSP },Context.Request.Scheme)','Thêm một sản phẩm')">Sửa</a> |
                                         <a asp-action="Details" asp-route-id="@item.MaSP">Details</a> |
                                         <a asp-action="DeleteConfirmed" asp-route-id="@item.MaSP">Delete</a>
                                     </td>
