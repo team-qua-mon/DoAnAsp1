@@ -200,7 +200,6 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             var sanPhamModel = await _context.SanPhams
                 .Include(s => s.LoaiSPs)
                 .FirstOrDefaultAsync(m => m.MaSP == id);
-            sanPhamModel.TrangThai=0;
             if (sanPhamModel == null)
             {
                 return NotFound();
@@ -215,9 +214,10 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var sanPhamModel = await _context.SanPhams.FindAsync(id);
-            _context.SanPhams.Remove(sanPhamModel);
+            sanPhamModel.TrangThai = 0;
+            _context.Update(sanPhamModel);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewSanPham", _context.SanPhams.ToList()) });
         }
 
         private bool SanPhamModelExists(int id)

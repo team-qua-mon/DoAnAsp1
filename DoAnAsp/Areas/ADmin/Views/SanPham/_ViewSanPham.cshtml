@@ -133,6 +133,10 @@
                                         <a class="btn btn-danger" onclick="showModal('@Url.Action("AddAndEdit","SanPham",new { id = item.MaSP },Context.Request.Scheme)','Thêm một sản phẩm')">Sửa</a> |
                                         <a asp-action="Details" asp-route-id="@item.MaSP">Details</a> |
                                         <a asp-action="DeleteConfirmed" asp-route-id="@item.MaSP">Delete</a>
+                                        <form asp-action="Delete" asp-route-id="@item.MaSP" onsubmit="return jQueryAjaxDelete(this);">
+                                            <input type="hidden" asp-for="@item.MaSP" />
+                                            <input type="submit"  value="Xóa" class="btn btn-success" />
+                                        </form>
                                     </td>
                                 </tr>
                             }

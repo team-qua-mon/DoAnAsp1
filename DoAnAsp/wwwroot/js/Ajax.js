@@ -63,3 +63,27 @@ function readURL(input, idImg) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+jQueryAjaxDelete = form => {
+    if (confirm("Bạn có muốn xóa sản phẩm?")) {
+        try {
+            $.ajax({
+                type: 'POST',
+                url: form.action,
+                data: new FormData(form),
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    $('#View-All').html(res.html);
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+
+            })
+            return false;
+        } catch (ex) {
+            console.log(ex)
+        }
+    }
+    
+}
