@@ -85,5 +85,8 @@ jQueryAjaxDelete = form => {
             console.log(ex)
         }
     }
+    else {
+        return false;
+    }
     
 }

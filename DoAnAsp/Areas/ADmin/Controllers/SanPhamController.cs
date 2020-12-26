@@ -26,7 +26,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // GET: ADmin/SanPham
         public async Task<IActionResult> Index()
         {
-            var dPContext = _context.SanPhams.Include(s => s.LoaiSPs);
+            var dPContext = _context.SanPhams.Where(u=>u.TrangThai==1).Include(s => s.LoaiSPs);
             return View(await dPContext.ToListAsync());
         }
 
@@ -102,18 +102,21 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                 {
                     try
                     {
-                        _context.Update(sanPhamModel);
+                        
                         await _context.SaveChangesAsync();
-                        var path = Path.Combine(
+                        if (ful!=null)
+                        {
+                            var path = Path.Combine(
                         Directory.GetCurrentDirectory(), "wwwroot/Admin/ImgPro",
                         sanPhamModel.MaSP + "." + ful.FileName.Split(".")
                         [ful.FileName.Split(".").Length - 1]);
-                        using (var stream = new FileStream(path, FileMode.Create))
-                        {
-                            await ful.CopyToAsync(stream);
+                            using (var stream = new FileStream(path, FileMode.Create))
+                            {
+                                await ful.CopyToAsync(stream);
+                            }
+                            sanPhamModel.HinhAnh = sanPhamModel.MaSP + "." + ful.FileName.Split(".")
+                                [ful.FileName.Split(".").Length - 1];
                         }
-                        sanPhamModel.HinhAnh = sanPhamModel.MaSP + "." + ful.FileName.Split(".")
-                            [ful.FileName.Split(".").Length - 1];
                         _context.Update(sanPhamModel);
                         await _context.SaveChangesAsync();
                     }
@@ -217,7 +220,8 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             sanPhamModel.TrangThai = 0;
             _context.Update(sanPhamModel);
             await _context.SaveChangesAsync();
-            return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewSanPham", _context.SanPhams.ToList()) });
+            
+            return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewSanPham", _context.SanPhams.Where(u=>u.TrangThai==1).ToList()) });
         }
 
         private bool SanPhamModelExists(int id)

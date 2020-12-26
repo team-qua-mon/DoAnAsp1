@@ -3,13 +3,18 @@
 @{
     ViewData["Title"] = "Create";
     Layout = null;
+    string IMG = null;
+    if (Model.HinhAnh == null)
+        IMG = "TS001.jpg";
+    else
+        IMG = Model.HinhAnh;
 
 }
 
 <hr />
 <div class="row">
     <div class="col-md-12">
-        <form asp-action="AddAndEdit" asp-route-id="@Model.MaSP" enctype="multipart/form-data" onsubmit="return jQueryAjaxPost(this);" >
+        <form asp-action="AddAndEdit" asp-route-id="@Model.MaSP" enctype="multipart/form-data" onsubmit="return jQueryAjaxPost(this);">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="MaSP" />
             <div class="form-group">
@@ -29,13 +34,16 @@
             </div>
 
             <div class="custom-file">
-                <input accept="*.png|*.jpg|*.jpeg" type="file" class="custom-file-input w-25" id="ful" name="ful" />
+                <input accept="*.png|*.jpg|*.jpeg" type="file" class="custom-file-input" id="ful" name="ful" />
                 <label class="custom-file-label" for="ful">
-                    Chon Hinh
                 </label>
             </div>
             <div class="form-group">
-                <img id="imgPre" src="~/Admin/ImgPro/TS001.jpg" alt="noimage" class="img-thumbnail" />
+                <img id="imgPre" src="~/Admin/ImgPro/@IMG" alt="noimage" class="img-thumbnail w-25" />
+            </div>
+
+            <div class="form-group" hidden>
+                <input asp-for="HinhAnh" class="form-control" />
             </div>
 
             <div class="form-group">

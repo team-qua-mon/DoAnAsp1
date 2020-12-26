@@ -45,9 +45,22 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         }
 
         // GET: ADmin/LoaiSP/Create
-        public IActionResult Create()
+        public async Task<IActionResult> AddAndEdit(int id=0)
         {
-            return View();
+            if(id==0)
+            {
+                return View(new LoaiSPModelcs());
+            }
+            else
+            {
+                var loaiSP =await _context.LoaiSPs.FindAsync(id);
+                if(loaiSP==null)
+                {
+                    return NotFound();
+                }
+
+                return View(loaiSP);
+            }
         }
 
         // POST: ADmin/LoaiSP/Create
@@ -55,15 +68,38 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaLoaiSP,TenLSP,Mota")] LoaiSPModelcs loaiSPModelcs)
+        public async Task<IActionResult> AddAndEdit(int id,[Bind("MaLoaiSP,TenLSP,Mota")] LoaiSPModelcs loaiSPModelcs)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(loaiSPModelcs);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (id == 0)
+                {
+                    _context.Add(loaiSPModelcs);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    try
+                    {
+                        await _context.SaveChangesAsync();
+                            _context.Update(loaiSPModelcs);
+                            await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if(!LoaiSPModelcsExists(loaiSPModelcs.MaLoaiSP))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                }
+                return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewLoaiSP", _context.LoaiSPs.ToList()) });
             }
-            return View(loaiSPModelcs);
+            return Json(new { isValid = false, html = Helper.RenderRazorViewToString(this, "AddAndEdit"), loaiSPModelcs });
         }
 
         // GET: ADmin/LoaiSP/Edit/5

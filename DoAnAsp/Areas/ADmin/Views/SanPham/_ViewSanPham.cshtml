@@ -88,9 +88,9 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Soluong)
                                     </td>
-                                    <td>
+                                    <td class="chinhsua" id="chinhsua">
                                         @*@Html.DisplayFor(modelItem => item.HinhAnh)*@
-                                        <img src="~/Admin/ImgPro/@item.HinhAnh" alt="Alternate Text" class="w-50" />
+                                        <img src="~/Admin/ImgPro/@item.HinhAnh" alt="Alternate Text" class="w-100" />
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.ManHinh)
@@ -130,9 +130,8 @@
                                         @Html.DisplayFor(modelItem => item.LoaiSPs.TenLSP)
                                     </td>
                                     <td>
-                                        <a class="btn btn-danger" onclick="showModal('@Url.Action("AddAndEdit","SanPham",new { id = item.MaSP },Context.Request.Scheme)','Thêm một sản phẩm')">Sửa</a> |
-                                        <a asp-action="Details" asp-route-id="@item.MaSP">Details</a> |
-                                        <a asp-action="DeleteConfirmed" asp-route-id="@item.MaSP">Delete</a>
+                                        <a class="btn btn-danger" onclick="showModal('@Url.Action("AddAndEdit","SanPham",new { id = item.MaSP },Context.Request.Scheme)','Thêm một sản phẩm')">Sửa</a> 
+                                        <a class="btn btn-danger" asp-action="Details" asp-route-id="@item.MaSP">Details</a>    
                                         <form asp-action="Delete" asp-route-id="@item.MaSP" onsubmit="return jQueryAjaxDelete(this);">
                                             <input type="hidden" asp-for="@item.MaSP" />
                                             <input type="submit"  value="Xóa" class="btn btn-success" />
@@ -147,3 +146,4 @@
         </div>
     </div>
 </div>
+
