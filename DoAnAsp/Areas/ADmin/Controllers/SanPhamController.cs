@@ -133,7 +133,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                     }
                 }
                 ViewBag.ListLSP = _context.LoaiSPs.ToList();
-                return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewSanPham", _context.SanPhams.ToList()) });
+                return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewSanPham", _context.SanPhams.Where(u=>u.TrangThai==1).ToList()) });
             }
             ViewBag.ListLSP = _context.LoaiSPs.ToList();
             return Json(new { isValid = false, html = Helper.RenderRazorViewToString(this, "AddAndEdit", sanPhamModel) });
@@ -148,11 +148,12 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             }
 
             var sanPhamModel = await _context.SanPhams.FindAsync(id);
+            
             if (sanPhamModel == null)
             {
                 return NotFound();
             }
-            ViewData["MaLoaiSP"] = new SelectList(_context.LoaiSPs, "MaLoaiSP", "Mota", sanPhamModel.MaLoaiSP);
+            ViewData["MaLoaiSP"] = new SelectList(_context.LoaiSPs, "MaLoaiSP", "TenSP", sanPhamModel.MaLoaiSP);
             return View(sanPhamModel);
         }
 

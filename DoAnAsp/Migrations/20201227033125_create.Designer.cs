@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoAnAsp.Migrations
 {
     [DbContext(typeof(DPContext))]
-    [Migration("20201222015721_create")]
+    [Migration("20201227033125_create")]
     partial class create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -150,15 +150,13 @@ namespace DoAnAsp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Mota")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
-
                     b.Property<string>("TenLSP")
                         .IsRequired()
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
+
+                    b.Property<int>("TrangThai")
+                        .HasColumnType("int");
 
                     b.HasKey("MaLoaiSP");
 
@@ -283,7 +281,6 @@ namespace DoAnAsp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MoTa")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Pin")

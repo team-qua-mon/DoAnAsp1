@@ -148,15 +148,13 @@ namespace DoAnAsp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Mota")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
-
                     b.Property<string>("TenLSP")
                         .IsRequired()
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
+
+                    b.Property<int>("TrangThai")
+                        .HasColumnType("int");
 
                     b.HasKey("MaLoaiSP");
 
@@ -281,7 +279,6 @@ namespace DoAnAsp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MoTa")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Pin")

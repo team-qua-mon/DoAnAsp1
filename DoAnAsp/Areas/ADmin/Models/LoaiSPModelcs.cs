@@ -16,10 +16,8 @@ namespace DoAnAsp.Areas.ADmin.Models
         [Display(Name ="Tên loại sản phẩm")]
         public string TenLSP { get; set; }
 
-        [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
-        [Display(Name = "Mô tả")]
-        [StringLength(maximumLength:20,ErrorMessage ="không được dài quá 20 ký tự")]
-        public string Mota { get; set; }
+        [Display(Name = "Trạng Thái")]
+        public int TrangThai { get; set; }
 
         public ICollection<SanPhamModel> SanPhams { get; set; }
     }

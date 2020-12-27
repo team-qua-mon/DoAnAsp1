@@ -5,6 +5,9 @@
     Layout = null;
 }
 
+<h1>Create</h1>
+
+<h4>LoaiSPModelcs</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -16,10 +19,10 @@
                 <span asp-validation-for="TenLSP" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="Mota" class="form-control" type="hidden" value="" />
+                <input asp-for="TrangThai" type="hidden" value="1"/>
             </div>
             <div class="form-group">
-                <input type="submit" value="Thêm loại sản phẩm" class="btn btn-primary" />
+                <input type="submit" value="Lưu" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -29,3 +32,6 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

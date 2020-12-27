@@ -23,7 +23,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // GET: ADmin/LoaiSP
         public async Task<IActionResult> Index()
         {
-            return View(await _context.LoaiSPs.ToListAsync());
+            return View(await _context.LoaiSPs.Where(u=>u.TrangThai==1).ToListAsync());
         }
 
         // GET: ADmin/LoaiSP/Details/5
@@ -45,16 +45,16 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         }
 
         // GET: ADmin/LoaiSP/Create
-        public async Task<IActionResult> AddAndEdit(int id=0)
+        public async Task<IActionResult> AddAndEdit(int id = 0)
         {
-            if(id==0)
+            if (id == 0)
             {
                 return View(new LoaiSPModelcs());
             }
             else
             {
-                var loaiSP =await _context.LoaiSPs.FindAsync(id);
-                if(loaiSP==null)
+                var loaiSP = await _context.LoaiSPs.FindAsync(id);
+                if (loaiSP == null)
                 {
                     return NotFound();
                 }
@@ -68,26 +68,26 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddAndEdit(int id,[Bind("MaLoaiSP,TenLSP,Mota")] LoaiSPModelcs loaiSPModelcs)
+        public async Task<IActionResult> AddAndEdit(int id,[Bind("MaLoaiSP,TenLSP,TrangThai")] LoaiSPModelcs loaiSPModelcs)
         {
             if (ModelState.IsValid)
             {
-                if (id == 0)
+                if (id==0)
                 {
-                    _context.Add(loaiSPModelcs);
+                     _context.Add(loaiSPModelcs);
                     await _context.SaveChangesAsync();
                 }
                 else
                 {
                     try
                     {
+                        _context.Update(loaiSPModelcs);
                         await _context.SaveChangesAsync();
-                            _context.Update(loaiSPModelcs);
-                            await _context.SaveChangesAsync();
                     }
                     catch (DbUpdateConcurrencyException)
                     {
-                        if(!LoaiSPModelcsExists(loaiSPModelcs.MaLoaiSP))
+
+                        if (LoaiSPModelcsExists(loaiSPModelcs.MaLoaiSP))
                         {
                             return NotFound();
                         }
@@ -97,7 +97,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                         }
                     }
                 }
-                return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewLoaiSP", _context.LoaiSPs.ToList()) });
+                return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewLSP", _context.LoaiSPs.Where(u=>u.TrangThai==1).ToList()) });
             }
             return Json(new { isValid = false, html = Helper.RenderRazorViewToString(this, "AddAndEdit"), loaiSPModelcs });
         }
@@ -123,7 +123,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MaLoaiSP,TenLSP,Mota")] LoaiSPModelcs loaiSPModelcs)
+        public async Task<IActionResult> Edit(int id, [Bind("MaLoaiSP,TenLSP,TrangThai")] LoaiSPModelcs loaiSPModelcs)
         {
             if (id != loaiSPModelcs.MaLoaiSP)
             {
@@ -177,9 +177,9 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var loaiSPModelcs = await _context.LoaiSPs.FindAsync(id);
-            _context.LoaiSPs.Remove(loaiSPModelcs);
+            loaiSPModelcs.TrangThai = 0;
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewLSP", _context.LoaiSPs.Where(u => u.TrangThai == 1).ToList()) });
         }
 
         private bool LoaiSPModelcsExists(int id)

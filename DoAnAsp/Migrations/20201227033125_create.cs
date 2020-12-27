@@ -14,7 +14,7 @@ namespace DoAnAsp.Migrations
                     MaLoaiSP = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TenLSP = table.Column<string>(maxLength: 20, nullable: false),
-                    Mota = table.Column<string>(maxLength: 20, nullable: false)
+                    TrangThai = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,7 +54,7 @@ namespace DoAnAsp.Migrations
                     ROM = table.Column<string>(nullable: false),
                     Pin = table.Column<string>(nullable: false),
                     SoSao = table.Column<int>(nullable: false),
-                    MoTa = table.Column<string>(nullable: false),
+                    MoTa = table.Column<string>(nullable: true),
                     TrangThai = table.Column<int>(nullable: false),
                     MaLoaiSP = table.Column<int>(nullable: false)
                 },

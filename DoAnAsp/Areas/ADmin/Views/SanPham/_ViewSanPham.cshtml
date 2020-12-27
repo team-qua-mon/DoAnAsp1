@@ -130,7 +130,7 @@
                                         @Html.DisplayFor(modelItem => item.LoaiSPs.TenLSP)
                                     </td>
                                     <td>
-                                        <a class="btn btn-danger" onclick="showModal('@Url.Action("AddAndEdit","SanPham",new { id = item.MaSP },Context.Request.Scheme)','Thêm một sản phẩm')">Sửa</a> 
+                                        <a class="btn btn-danger" onclick="showModal('@Url.Action("AddAndEdit","SanPham",new { id = item.MaSP },Context.Request.Scheme)','Sửa một sản phẩm')">Sửa</a> 
                                         <a class="btn btn-danger" asp-action="Details" asp-route-id="@item.MaSP">Details</a>    
                                         <form asp-action="Delete" asp-route-id="@item.MaSP" onsubmit="return jQueryAjaxDelete(this);">
                                             <input type="hidden" asp-for="@item.MaSP" />
