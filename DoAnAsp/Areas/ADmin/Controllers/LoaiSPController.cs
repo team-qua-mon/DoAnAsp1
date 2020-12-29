@@ -82,11 +82,10 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                     try
                     {
                         _context.Update(loaiSPModelcs);
-                        await _context.SaveChangesAsync();
+                        await _context.SaveChangesAsync();  
                     }
                     catch (DbUpdateConcurrencyException)
                     {
-
                         if (LoaiSPModelcsExists(loaiSPModelcs.MaLoaiSP))
                         {
                             return NotFound();

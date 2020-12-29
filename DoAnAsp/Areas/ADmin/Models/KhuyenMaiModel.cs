@@ -11,6 +11,7 @@ namespace DoAnAsp.Areas.ADmin.Models
     {   
         [Key]
         [ForeignKey("SanPham")]
+        [Display(Name ="Tên sản phẩm")]
         public int MaKM { get; set; }
 
         [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]

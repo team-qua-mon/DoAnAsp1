@@ -23,7 +23,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // GET: ADmin/KhuyenMai
         public async Task<IActionResult> Index()
         {
-            var dPContext = _context.KhuyenMais.Include(k => k.SanPham);
+            var dPContext = _context.KhuyenMais.Where(u=>u.TrangThai==1).Include(k => k.SanPham);
             return View(await dPContext.ToListAsync());
         }
 
@@ -47,10 +47,25 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         }
 
         // GET: ADmin/KhuyenMai/Create
-        public IActionResult Create()
+        public async Task<IActionResult> AddAndEdit(int id=0)
         {
-            ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "CPU");
-            return View();
+            if(id==0)
+            {
+                ViewBag.ListSP = _context.SanPhams.Where(u => u.TrangThai == 1).ToList();
+                return View(new KhuyenMaiModel());
+            }
+            else
+            {
+                var khuyenmaiModel = await _context.KhuyenMais.FindAsync(id);
+                if(khuyenmaiModel==null)
+                {
+                    return NotFound();
+                }
+                ViewBag.ListSP = _context.SanPhams.Where(u=>u.TrangThai==1).ToList();
+                ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "TenSP");
+                return View(khuyenmaiModel);
+            }
+            
         }
 
         // POST: ADmin/KhuyenMai/Create
@@ -58,16 +73,39 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaKM,TenKM,GiaTri,NgayBD,NgayKT,TrangThai")] KhuyenMaiModel khuyenMaiModel)
+        public async Task<IActionResult> AddAndEdit(int id,[Bind("MaKM,TenKM,GiaTri,NgayBD,NgayKT,TrangThai")] KhuyenMaiModel khuyenMaiModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(khuyenMaiModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (id == 0)
+                {
+                    _context.Add(khuyenMaiModel);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    try
+                    {
+                        _context.Update(khuyenMaiModel);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if(KhuyenMaiModelExists(khuyenMaiModel.MaKM))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }   
+                    }
+                }
+                ViewBag.ListSP = _context.SanPhams.Where(u => u.TrangThai == 1).ToList();
+                return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewKhuyenMai", _context.KhuyenMais.Where(u => u.TrangThai == 1).ToList()) });
             }
-            ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "CPU", khuyenMaiModel.MaKM);
-            return View(khuyenMaiModel);
+            ViewBag.ListSP = _context.SanPhams.Where(u => u.TrangThai == 1).ToList();
+            return Json(new { isValid = false, html = Helper.RenderRazorViewToString(this, "AddAndEdit"), khuyenMaiModel });
         }
 
         // GET: ADmin/KhuyenMai/Edit/5
@@ -83,7 +121,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             {
                 return NotFound();
             }
-            ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "CPU", khuyenMaiModel.MaKM);
+            ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "TenSP", khuyenMaiModel.MaKM);
             return View(khuyenMaiModel);
         }
 
@@ -119,7 +157,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "CPU", khuyenMaiModel.MaKM);
+            ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "TenSP", khuyenMaiModel.MaKM);
             return View(khuyenMaiModel);
         }
 
