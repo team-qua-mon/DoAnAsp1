@@ -39,7 +39,6 @@ namespace DoAnAsp.Controllers
             }
             else if(r[0].MAQuyen == 1)
             {
-                
                 var urlUser = Url.RouteUrl(new { controller = "ShopBanDT", action = "Index" });
                 return Redirect(urlUser);
             }

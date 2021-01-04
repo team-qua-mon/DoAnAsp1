@@ -67,9 +67,12 @@
                                         @Html.DisplayFor(modelItem => item.SanPham.TenSP)
                                     </td>
                                     <td>
-                                        <a asp-action="Edit" asp-route-id="@item.MaKM">Edit</a> |
-                                        <a asp-action="Details" asp-route-id="@item.MaKM">Details</a> |
-                                        <a asp-action="Delete" asp-route-id="@item.MaKM">Delete</a>
+                                        <a class="btn btn-danger" onclick="showModal('@Url.Action("AddAndEdit","KhuyenMai",new { id = item.MaKM },Context.Request.Scheme)','Sửa khuyến mãi')">Sửa</a>
+                                        <a class="btn btn-danger" asp-action="Details" asp-route-id="@item.MaKM">Details</a>
+                                        <form asp-action="Delete" asp-route-id="@item.MaKM" onsubmit="return jQueryAjaxDelete(this);">
+                                            <input type="hidden" asp-for="@item.MaKM" />
+                                            <input type="submit" value="Xóa" class="btn btn-success" />
+                                        </form>
                                     </td>
                                 </tr>
                             }

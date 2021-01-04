@@ -10,6 +10,10 @@
 <p>
     <a class="btn btn-success" onclick="showModal('@Url.Action("AddAndEdit","SanPham",null,Context.Request.Scheme)','Thêm một sản phẩm')" >Thêm sản phẩm</a>
 </p>
+<form asp-action="Index">
+    <input type="text" name="Search" placeholder="Search..." class="h-25" />
+    <input type="submit" value="Tìm kiếm" class=" btn btn-primary" />
+</form>
 <div class="row mb-4">
     <div class="col-md-12">
         <div class="card">

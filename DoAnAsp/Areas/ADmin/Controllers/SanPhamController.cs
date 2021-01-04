@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,7 +7,6 @@ using DoAnAsp.Areas.ADmin.Data;
 using DoAnAsp.Areas.ADmin.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
-using static DoAnAsp.Helper;
 
 namespace DoAnAsp.Areas.ADmin.Controllers
 {
@@ -24,8 +21,15 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         }
 
         // GET: ADmin/SanPham
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string Search)
         {
+            if (Search!=null)
+            {
+                ViewBag.ListLSP = _context.LoaiSPs.ToList();
+                var sanpham = _context.SanPhams.Where(sp => sp.TenSP.Contains(Search)).ToList();
+                return View(sanpham);
+
+            }
             var dPContext = _context.SanPhams.Where(u=>u.TrangThai==1).Include(s => s.LoaiSPs);
             return View(await dPContext.ToListAsync());
         }
@@ -55,7 +59,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         {
             if(id == 0)
             {
-                ViewBag.ListLSP = _context.LoaiSPs.ToList();
+                ViewBag.ListLSP = _context.LoaiSPs.Where(lsp => lsp.TrangThai == 1).ToList();
                 return View(new SanPhamModel()); 
             }
             else
@@ -65,7 +69,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                 {
                     return NotFound();
                 }
-                ViewBag.ListLSP = _context.LoaiSPs.ToList();
+                ViewBag.ListLSP = _context.LoaiSPs.Where(lsp => lsp.TrangThai == 1).ToList();
                 ViewData["MaSP"] = new SelectList(_context.SanPhams, "MaSP", "TenSP", sanphamModel.MaSP);
                 return View(sanphamModel);
             }
@@ -132,10 +136,10 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                         }
                     }
                 }
-                ViewBag.ListLSP = _context.LoaiSPs.ToList();
+                ViewBag.ListLSP = _context.LoaiSPs.Where(lsp=>lsp.TrangThai==1).ToList();
                 return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewSanPham", _context.SanPhams.Where(u=>u.TrangThai==1).ToList()) });
             }
-            ViewBag.ListLSP = _context.LoaiSPs.ToList();
+            ViewBag.ListLSP = _context.LoaiSPs.Where(lsp => lsp.TrangThai == 1).ToList();
             return Json(new { isValid = false, html = Helper.RenderRazorViewToString(this, "AddAndEdit", sanPhamModel) });
         }
 
@@ -217,6 +221,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            ViewBag.ListLSP = _context.LoaiSPs.Where(lsp => lsp.TrangThai == 1).ToList();
             var sanPhamModel = await _context.SanPhams.FindAsync(id);
             sanPhamModel.TrangThai = 0;
             _context.Update(sanPhamModel);
