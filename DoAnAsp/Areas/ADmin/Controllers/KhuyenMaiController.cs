@@ -62,7 +62,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                     return NotFound();
                 }
                 ViewBag.ListSP = _context.SanPhams.Where(u=>u.TrangThai==1).ToList();
-                ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "TenSP");
+                ViewData["MaKM"] = new SelectList(_context.KhuyenMais, "MaKM", "Ten");
                 return View(khuyenmaiModel);
             }
             
@@ -187,10 +187,9 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         {
             ViewBag.ListSP = _context.SanPhams.Where(u => u.TrangThai == 1).ToList();
             var khuyenMaiModel = await _context.KhuyenMais.FindAsync(id);
-            khuyenMaiModel.TrangThai = 0;
-            _context.Update(khuyenMaiModel);
+            _context.Remove(khuyenMaiModel);
             await _context.SaveChangesAsync();
-            return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewKhuyenMai", _context.KhuyenMais.Where(u => u.TrangThai == 1).ToList()) });
+            return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewKhuyenMai", _context.KhuyenMais.ToList()) });
 
         }
 

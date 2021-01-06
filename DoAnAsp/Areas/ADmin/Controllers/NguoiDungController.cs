@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoAnAsp.Areas.ADmin.Data;
 using DoAnAsp.Areas.ADmin.Models;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace DoAnAsp.Areas.ADmin.Controllers
 {
@@ -21,9 +23,16 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         }
 
         // GET: ADmin/NguoiDung
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string Search)
         {
-            var dPContext = _context.NguoiDungs.Include(n => n.PhanQuyens);
+            if (Search != null)
+            {
+                ViewBag.ListPQ = _context.PhanQuyens.ToList();
+                var nguoidung = _context.NguoiDungs.Where(sp =>( sp.TenND.Contains(Search) || sp.TenLot.Contains(Search) || sp.Ho.Contains(Search)) ).ToList();
+                return View(nguoidung);
+
+            }
+            var dPContext = _context.NguoiDungs.Where(u => u.TrangThai == 1).Include(s => s.PhanQuyens);
             return View(await dPContext.ToListAsync());
         }
 
@@ -47,10 +56,24 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         }
 
         // GET: ADmin/NguoiDung/Create
-        public IActionResult Create()
+        public async Task<IActionResult> AddAndEdit(int id = 0)
         {
-            ViewData["MAQuyen"] = new SelectList(_context.PhanQuyens, "MAQuyen", "TenQuyen");
-            return View();
+            if (id == 0)
+            {
+                ViewBag.ListPQ = _context.PhanQuyens.ToList();
+                return View(new NguoiDungModel());
+            }
+            else
+            {
+                var nguoidungModel = await _context.NguoiDungs.FindAsync(id);
+                if (nguoidungModel == null)
+                {
+                    return NotFound();
+                }
+                ViewBag.ListPQ = _context.PhanQuyens.ToList();
+                ViewData["MaND"] = new SelectList(_context.NguoiDungs, "MaND", "TenND", nguoidungModel.MaND);
+                return View(nguoidungModel);
+            }
         }
 
         // POST: ADmin/NguoiDung/Create
@@ -58,16 +81,67 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaND,Ho,TenLot,TenND,GioiTinh,HinhAnh,SDT,Andress,UserName,PassWord,TrangThai,MAQuyen")] NguoiDungModel nguoiDungModel)
+        public async Task<IActionResult> AddAndEdit(int id,[Bind("MaND,Ho,TenLot,TenND,GioiTinh,HinhAnh,SDT,Andress,UserName,PassWord,TrangThai,MAQuyen")] NguoiDungModel nguoiDungModel, IFormFile ful)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(nguoiDungModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (id == 0)
+                {
+                    _context.Add(nguoiDungModel);
+                    await _context.SaveChangesAsync();
+                    var path = Path.Combine(
+                        Directory.GetCurrentDirectory(), "wwwroot/Admin/ImgNgDung",
+                        nguoiDungModel.MaND + "." + ful.FileName.Split(".")
+                        [ful.FileName.Split(".").Length - 1]);
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await ful.CopyToAsync(stream);
+                    }
+                    nguoiDungModel.HinhAnh = nguoiDungModel.MaND + "." + ful.FileName.Split(".")
+                        [ful.FileName.Split(".").Length - 1];
+                    _context.Update(nguoiDungModel);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    try
+                    {
+
+                        await _context.SaveChangesAsync();
+                        if (ful != null)
+                        {
+                            var path = Path.Combine(
+                            Directory.GetCurrentDirectory(), "wwwroot/Admin/ImgNgDung",
+                            nguoiDungModel.MaND + "." + ful.FileName.Split(".")
+                            [ful.FileName.Split(".").Length - 1]);
+                            using (var stream = new FileStream(path, FileMode.Create))
+                            {
+                                await ful.CopyToAsync(stream);
+                            }
+                            nguoiDungModel.HinhAnh = nguoiDungModel.MaND + "." + ful.FileName.Split(".")
+                                [ful.FileName.Split(".").Length - 1];
+                        }
+                        _context.Update(nguoiDungModel);
+                        await _context.SaveChangesAsync();
+                        
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!NguoiDungModelExists(nguoiDungModel.MaND))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                }
+                ViewBag.ListPQ = _context.PhanQuyens.ToList();
+                return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewNguoiDung", _context.NguoiDungs.Where(u => u.TrangThai == 1).ToList()) });
             }
-            ViewData["MAQuyen"] = new SelectList(_context.PhanQuyens, "MAQuyen", "TenQuyen", nguoiDungModel.MAQuyen);
-            return View(nguoiDungModel);
+            ViewBag.ListPQ = _context.PhanQuyens.ToList();
+            return Json(new { isValid = false, html = Helper.RenderRazorViewToString(this, "AddAndEdit", nguoiDungModel) });
         }
 
         // GET: ADmin/NguoiDung/Edit/5

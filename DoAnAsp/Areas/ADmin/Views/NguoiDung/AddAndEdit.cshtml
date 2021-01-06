@@ -1,16 +1,23 @@
 ﻿@model DoAnAsp.Areas.ADmin.Models.NguoiDungModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create";
+    Layout = null;
+    string IMG = null;
+    if (Model.HinhAnh == null)
+        IMG = "TS001.jpg";
+    else
+        IMG = Model.HinhAnh;
+
 }
 
-<h1>Edit</h1>
+<h1>Create</h1>
 
 <h4>NguoiDungModel</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+    <div class="col-md-12">
+        <form asp-action="AddAndEdit" asp-route-id="@Model.MaND" enctype="multipart/form-data" onsubmit="return jQueryAjaxPost(this);">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="MaND" />
             <div class="form-group">
@@ -33,10 +40,17 @@
                 <input asp-for="GioiTinh" class="form-control" />
                 <span asp-validation-for="GioiTinh" class="text-danger"></span>
             </div>
+            <div class="custom-file">
+                <input accept="*.png|*.jpg|*.jpeg" type="file" class="custom-file-input" id="ful" name="ful" />
+                <label class="custom-file-label" for="ful">
+                </label>
+            </div>
             <div class="form-group">
-                <label asp-for="HinhAnh" class="control-label"></label>
+                <img id="imgPre" src="~/Admin/ImgNgDung/@IMG" alt="noimage" class="img-thumbnail w-25" />
+            </div>
+
+            <div class="form-group" hidden>
                 <input asp-for="HinhAnh" class="form-control" />
-                <span asp-validation-for="HinhAnh" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SDT" class="control-label"></label>
@@ -59,17 +73,14 @@
                 <span asp-validation-for="PassWord" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TrangThai" class="control-label"></label>
-                <input asp-for="TrangThai" class="form-control" />
-                <span asp-validation-for="TrangThai" class="text-danger"></span>
+                <input asp-for="TrangThai" type="hidden" value="1" />
             </div>
             <div class="form-group">
                 <label asp-for="MAQuyen" class="control-label"></label>
-                <select asp-for="MAQuyen" class="form-control" asp-items="ViewBag.MAQuyen"></select>
-                <span asp-validation-for="MAQuyen" class="text-danger"></span>
+                <select asp-for="MAQuyen" class="form-control"  asp-items="@(new SelectList(ViewBag.ListPQ,"MAQuyen","TenQuyen"))"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -79,6 +90,8 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+<script>
+    $("#ful").change(function () {
+        readURL(this, '#imgPre');
+    });
+</script>

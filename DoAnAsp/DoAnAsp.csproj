@@ -15,7 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\Admin\ImgLSP\" />
-    <Folder Include="wwwroot\Admin\ImgNgdung\" />
+    <Folder Include="wwwroot\Admin\ImgNgDung\" />
   </ItemGroup>
 
 </Project>

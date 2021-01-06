@@ -1,0 +1,111 @@
+﻿@model IEnumerable<DoAnAsp.Areas.ADmin.Models.NguoiDungModel>
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-success" onclick="showModal('@Url.Action("AddAndEdit","NguoiDung",null,Context.Request.Scheme)','Thêm Người Dùng')">Thêm Người Dùng</a>
+</p>
+<form asp-action="Index">
+    <input type="text" name="Search" placeholder="Search..." class="h-25" />
+    <input type="submit" value="Tìm kiếm" class=" btn btn-primary" />
+</form>
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="card-title">Danh sách tài khoản</h4>
+                <div class="d-flex">
+                    <i data-feather="download"></i>
+                </div>
+            </div>
+            <div class="card-body px-0 pb-0">
+                <div class="table-responsive">
+                    <table class="table mb-0" id="table1">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ho)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TenLot)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TenND)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.GioiTinh)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.HinhAnh)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SDT)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Andress)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UserName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PassWord)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TrangThai)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PhanQuyens)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Ho)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TenLot)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TenND)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.GioiTinh)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.HinhAnh)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SDT)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Andress)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PassWord)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TrangThai)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PhanQuyens.TenQuyen)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.MaND">Edit</a> |
+                                        <a asp-action="Details" asp-route-id="@item.MaND">Details</a> |
+                                        <a asp-action="Delete" asp-route-id="@item.MaND">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

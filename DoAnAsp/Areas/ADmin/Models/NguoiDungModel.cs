@@ -33,7 +33,6 @@ namespace DoAnAsp.Areas.ADmin.Models
         [Display(Name = "Giới tính")]
         public string GioiTinh { get; set; }
 
-        [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
         [Display(Name = "Hình ảnh")]
         public string HinhAnh { get; set; }
 

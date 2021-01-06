@@ -28,11 +28,11 @@ namespace DoAnAsp.Areas.ADmin.Models
         [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
         [Display(Name = "Ngày bắt đầu")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime NgayBD { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
         [Display(Name = "Ngày kết thúc")]
         public DateTime NgayKT { get; set; }

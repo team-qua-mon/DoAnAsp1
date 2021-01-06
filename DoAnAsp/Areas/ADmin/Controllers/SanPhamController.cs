@@ -82,7 +82,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddAndEdit(int id,[Bind("MaSP,TenSP,Gia,Soluong,HinhAnh,ManHinh,HDH,CameraTrc,CameraSau,CPU,RAM,ROM,Pin,SoSao,MoTa,TrangThai,MaLoaiSP")] SanPhamModel sanPhamModel,IFormFile ful)
-        {
+         {
             if (ModelState.IsValid)
             {
                 if(id == 0)
@@ -144,59 +144,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         }
 
         // GET: ADmin/SanPham/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var sanPhamModel = await _context.SanPhams.FindAsync(id);
-            
-            if (sanPhamModel == null)
-            {
-                return NotFound();
-            }
-            ViewData["MaLoaiSP"] = new SelectList(_context.LoaiSPs, "MaLoaiSP", "TenSP", sanPhamModel.MaLoaiSP);
-            return View(sanPhamModel);
-        }
-
-        // POST: ADmin/SanPham/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MaSP,TenSP,Gia,Soluong,HinhAnh,ManHinh,HDH,CameraTrc,CameraSau,CPU,RAM,ROM,Pin,SoSao,MoTa,TrangThai,MaLoaiSP")] SanPhamModel sanPhamModel)
-        {
-            if (id != sanPhamModel.MaSP)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(sanPhamModel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SanPhamModelExists(sanPhamModel.MaSP))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["MaLoaiSP"] = new SelectList(_context.LoaiSPs, "MaLoaiSP", "Mota", sanPhamModel.MaLoaiSP);
-            return View(sanPhamModel);
-        }
-
+       
         // GET: ADmin/SanPham/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
