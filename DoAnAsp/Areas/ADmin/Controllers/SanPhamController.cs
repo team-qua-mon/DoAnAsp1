@@ -87,8 +87,8 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             {
                 if(id == 0)
                 {
-                    _context.Add(sanPhamModel);
-                    await _context.SaveChangesAsync();
+                    //_context.Add(sanPhamModel);
+                    //await _context.SaveChangesAsync();
                     var path = Path.Combine(
                         Directory.GetCurrentDirectory(), "wwwroot/Admin/ImgPro",
                         sanPhamModel.MaSP + "." + ful.FileName.Split(".")

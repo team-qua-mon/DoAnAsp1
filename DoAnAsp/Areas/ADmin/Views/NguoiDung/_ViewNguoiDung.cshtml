@@ -1,4 +1,10 @@
 ﻿@model IEnumerable<DoAnAsp.Areas.ADmin.Models.NguoiDungModel>
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+
 <h1>Index</h1>
 
 <p>
@@ -75,7 +81,8 @@
                                         @Html.DisplayFor(modelItem => item.GioiTinh)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.HinhAnh)
+                                        @*@Html.DisplayFor(modelItem => item.HinhAnh)*@
+                                        <img src="~/Admin/ImgNgDung/@item.HinhAnh" alt="Alternate Text" />
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.SDT)
@@ -90,15 +97,26 @@
                                         @Html.DisplayFor(modelItem => item.PassWord)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.TrangThai)
+                                        @{if (item.TrangThai == 1)
+                                            {
+                                                @:Hoạt động
+                                            }
+                                            else
+                                            {
+                                                @:Đã khóa
+                                            }
+                                        }
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.PhanQuyens.TenQuyen)
                                     </td>
                                     <td>
-                                        <a asp-action="Edit" asp-route-id="@item.MaND">Edit</a> |
-                                        <a asp-action="Details" asp-route-id="@item.MaND">Details</a> |
-                                        <a asp-action="Delete" asp-route-id="@item.MaND">Delete</a>
+                                        <a class="btn btn-danger" onclick="showModal('@Url.Action("AddAndEdit","NguoiDung",new { id = item.MaND },Context.Request.Scheme)','Sửa người dùng')">Sửa</a>
+                                        <a class="btn btn-danger" asp-action="Details" asp-route-id="@item.MaND">Details</a>
+                                        <form asp-action="Delete" asp-route-id="@item.MaND" onsubmit="return jQueryAjaxDelete(this);">
+                                            <input type="hidden" asp-for="@item.MaND" />
+                                            <input type="submit" value="Xóa" class="btn btn-success" />
+                                        </form>
                                     </td>
                                 </tr>
                             }

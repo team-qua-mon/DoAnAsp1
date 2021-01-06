@@ -61,7 +61,16 @@
                                         @Html.DisplayFor(modelItem => item.NgayKT)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.TrangThai)
+                                        @*@Html.DisplayFor(modelItem => item.TrangThai)*@
+                                        @{if (item.TrangThai == 1)
+                                            {
+                                                @:Hoạt động
+                                            }
+                                            else
+                                            {
+                                                @:Đã xóa
+                                            }
+                                        }
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.SanPham.TenSP)

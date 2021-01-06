@@ -108,58 +108,58 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             return Json(new { isValid = false, html = Helper.RenderRazorViewToString(this, "AddAndEdit", khuyenMaiModel) });
         }
             
-        // GET: ADmin/KhuyenMai/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //// GET: ADmin/KhuyenMai/Edit/5
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var khuyenMaiModel = await _context.KhuyenMais.FindAsync(id);
-            if (khuyenMaiModel == null)
-            {
-                return NotFound();
-            }
-            ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "TenSP", khuyenMaiModel.MaKM);
-            return View(khuyenMaiModel);
-        }
+        //    var khuyenMaiModel = await _context.KhuyenMais.FindAsync(id);
+        //    if (khuyenMaiModel == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "TenSP", khuyenMaiModel.MaKM);
+        //    return View(khuyenMaiModel);
+        //}
 
-        // POST: ADmin/KhuyenMai/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MaKM,TenKM,GiaTri,NgayBD,NgayKT,TrangThai")] KhuyenMaiModel khuyenMaiModel)
-        {
-            if (id != khuyenMaiModel.MaKM)
-            {
-                return NotFound();
-            }
+        //// POST: ADmin/KhuyenMai/Edit/5
+        //// To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        //// more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("MaKM,TenKM,GiaTri,NgayBD,NgayKT,TrangThai")] KhuyenMaiModel khuyenMaiModel)
+        //{
+        //    if (id != khuyenMaiModel.MaKM)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(khuyenMaiModel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!KhuyenMaiModelExists(khuyenMaiModel.MaKM))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "TenSP", khuyenMaiModel.MaKM);
-            return View(khuyenMaiModel);
-        }
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(khuyenMaiModel);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!KhuyenMaiModelExists(khuyenMaiModel.MaKM))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "TenSP", khuyenMaiModel.MaKM);
+        //    return View(khuyenMaiModel);
+        //}
 
         // GET: ADmin/KhuyenMai/Delete/5
         public async Task<IActionResult> Delete(int? id)

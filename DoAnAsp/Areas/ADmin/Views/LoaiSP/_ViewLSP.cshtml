@@ -29,7 +29,16 @@
                     @Html.DisplayFor(modelItem => item.TenLSP)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TrangThai)
+                    @*@Html.DisplayFor(modelItem => item.TrangThai)*@
+                    @{if (item.TrangThai == 1)
+                        {
+                            @:Hoạt động
+                        }
+                        else
+                        {
+                            @:Đã xóa
+                        }
+                    }
                 </td>
                 <td>
                     <a class="btn btn-danger" onclick="showModal('@Url.Action("AddAndEdit","LoaiSP",new { id = item.MaLoaiSP },Context.Request.Scheme)','Sửa loại sản phẩm')">Sửa</a>
