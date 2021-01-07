@@ -21,8 +21,14 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         }
 
         // GET: ADmin/KhuyenMai
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string Search)
         {
+            if(Search!=null)
+            {
+                ViewBag.ListSP = _context.SanPhams.Where(u => u.TrangThai == 1).ToList();
+                var khuyenmai = _context.KhuyenMais.Where(km => km.TenKM.Contains(Search)).ToList();
+                return View(khuyenmai);
+            }
             var dPContext = _context.KhuyenMais.Where(u=>u.TrangThai==1).Include(k => k.SanPham);
             return View(await dPContext.ToListAsync());
         }
@@ -101,67 +107,12 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                         }   
                     }
                 }
-                ViewBag.ListSP = _context.SanPhams.Where(u => u.TrangThai == 1).ToList();
                 return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewKhuyenMai", _context.KhuyenMais.Where(u => u.TrangThai == 1).ToList()) });
             }
             ViewBag.ListSP = _context.SanPhams.Where(u => u.TrangThai == 1).ToList();
             return Json(new { isValid = false, html = Helper.RenderRazorViewToString(this, "AddAndEdit", khuyenMaiModel) });
         }
             
-        //// GET: ADmin/KhuyenMai/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var khuyenMaiModel = await _context.KhuyenMais.FindAsync(id);
-        //    if (khuyenMaiModel == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "TenSP", khuyenMaiModel.MaKM);
-        //    return View(khuyenMaiModel);
-        //}
-
-        //// POST: ADmin/KhuyenMai/Edit/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        //// more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("MaKM,TenKM,GiaTri,NgayBD,NgayKT,TrangThai")] KhuyenMaiModel khuyenMaiModel)
-        //{
-        //    if (id != khuyenMaiModel.MaKM)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(khuyenMaiModel);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!KhuyenMaiModelExists(khuyenMaiModel.MaKM))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["MaKM"] = new SelectList(_context.SanPhams, "MaSP", "TenSP", khuyenMaiModel.MaKM);
-        //    return View(khuyenMaiModel);
-        //}
-
-        // GET: ADmin/KhuyenMai/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

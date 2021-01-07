@@ -14,15 +14,20 @@ namespace DoAnAsp.Areas.ADmin.Controllers
     public class LoaiSPController : Controller
     {
         private readonly DPContext _context;
-
+     
         public LoaiSPController(DPContext context)
         {
             _context = context;
         }
 
         // GET: ADmin/LoaiSP
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string Search)
         {
+            if(Search!=null)
+            {
+                var loaiSp = _context.LoaiSPs.Where(lsp => lsp.TenLSP.Contains(Search)).ToList();
+                return View(loaiSp);
+            }
             return View(await _context.LoaiSPs.Where(u=>u.TrangThai==1).ToListAsync());
         }
 

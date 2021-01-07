@@ -142,7 +142,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             ViewBag.ListLSP = _context.LoaiSPs.Where(lsp => lsp.TrangThai == 1).ToList();
             return Json(new { isValid = false, html = Helper.RenderRazorViewToString(this, "AddAndEdit", sanPhamModel) });
         }
-
+        
         // GET: ADmin/SanPham/Edit/5
        
         // GET: ADmin/SanPham/Delete/5

@@ -2,19 +2,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DoAnAsp.Areas.ADmin.Data;
+using DoAnAsp.Areas.ADmin.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DoAnAsp.Controllers
 {
     public class ShopBanDTController : Controller
     {
+        private readonly DPContext _context;
+
+        public ShopBanDTController(DPContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
-            return View();
+            var sanpham = _context.SanPhams.Where(sp => sp.MaLoaiSP == 13).ToList();
+            if(sanpham==null)
+            {
+                return NotFound();
+            }
+            return View(sanpham);
         }
-        public IActionResult shop_grid()
+       
+        public async Task<IActionResult> shop_grid()
         {
-            return View();
+            var listLSP = _context.LoaiSPs.ToList();
+            if(listLSP==null)
+            { 
+                return NotFound();
+            }
+            return View(listLSP);
         }
         public IActionResult CheckOut()
         {

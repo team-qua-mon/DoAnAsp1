@@ -1,9 +1,8 @@
-﻿@model DoAnAsp.Areas.ADmin.Models.NguoiDungModel
+﻿
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "SignInIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
 
 @section CSS{
     <style>
@@ -282,19 +281,17 @@
                 alt="User Icon" />*@
         </div>
         <!-- Login Form -->
-        <form asp-action="login" method="post">
-            <input type="text" asp-for="UserName" id="username" class="fadeIn second"
+        <form asp-action="SinnIndex" method="post">
+            <input type="text" id="username" class="fadeIn second"
                    placeholder="login">
-            <input type="text" asp-for="PassWord" id="password" class="fadeIn third"
+            <input type="password"  id="password" class="fadeIn third"
                    placeholder="password">
             <input type="submit" id="btnGET" class="fadeIn fourth" value="Log in">
         </form>
-        <!-- Remind Passowrd -->
-        <div id="formFooter">
-            <i>Bạn chưa có tài khoản?</i><a asp-controller="SignIn" asp-action="SignInIndex" class="underlineHover">Nhấp vào đây</a>
-        </div>
+
     </div>
 </div>
+
 
 
 

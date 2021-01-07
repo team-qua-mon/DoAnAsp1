@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<DoAnAsp.Areas.ADmin.Models.LoaiSPModelcs>
 @{
     ViewData["Title"] = "shop_grid";
 }
@@ -29,13 +29,11 @@
                     <div class="single-widget category">
                         <h3 class="title">Categories</h3>
                         <ul class="categor-list">
-                            <li><a href="#">T-shirts</a></li>
-                            <li><a href="#">jacket</a></li>
-                            <li><a href="#">jeans</a></li>
-                            <li><a href="#">sweatshirts</a></li>
-                            <li><a href="#">trousers</a></li>
-                            <li><a href="#">kitwears</a></li>
-                            <li><a href="#">accessories</a></li>
+                            @foreach (var item in Model)
+                            {
+                                <li>@Html.DisplayFor( modelItem=> item.TenLSP)</li>
+                            }
+                            
                         </ul>
                     </div>
                     <!--/ End Single Widget -->
