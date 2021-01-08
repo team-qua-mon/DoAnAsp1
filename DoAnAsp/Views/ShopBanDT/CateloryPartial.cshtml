@@ -1,0 +1,9 @@
+﻿@model IEnumerable<DoAnAsp.Areas.ADmin.Models.LoaiSPModelcs>
+    <h3 class="title">Blog Categories</h3>
+    <ul class="categor-list">
+        @foreach (var item in Model)
+        {
+            <li><a href="" class="active">@Html.DisplayFor(modelItem => item.TenLSP)</a></li>
+
+        }
+    </ul>

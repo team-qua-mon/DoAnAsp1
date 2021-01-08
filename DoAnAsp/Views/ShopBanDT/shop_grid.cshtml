@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DoAnAsp.Areas.ADmin.Models.LoaiSPModelcs>
+﻿
 @{
     ViewData["Title"] = "shop_grid";
 }
@@ -27,14 +27,11 @@
                 <div class="shop-sidebar">
                     <!-- Single Widget -->
                     <div class="single-widget category">
-                        <h3 class="title">Categories</h3>
-                        <ul class="categor-list">
-                            @foreach (var item in Model)
-                            {
-                                <li>@Html.DisplayFor( modelItem=> item.TenLSP)</li>
-                            }
+               
+
+                          @await Html.PartialAsync("CateloryPartial.cshtml")
                             
-                        </ul>
+
                     </div>
                     <!--/ End Single Widget -->
                     <!-- Shop By Price -->

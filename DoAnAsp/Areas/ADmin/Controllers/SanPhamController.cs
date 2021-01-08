@@ -101,6 +101,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                         [ful.FileName.Split(".").Length - 1];
                     _context.Update(sanPhamModel);
                     await _context.SaveChangesAsync();
+                    
                 }
                 else
                 {
@@ -136,9 +137,11 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                         }
                     }
                 }
+                
                 ViewBag.ListLSP = _context.LoaiSPs.Where(lsp=>lsp.TrangThai==1).ToList();
                 return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewSanPham", _context.SanPhams.Where(u=>u.TrangThai==1).ToList()) });
             }
+            ModelState.AddModelError("", "Thêm mới sản phẩm thất bại");
             ViewBag.ListLSP = _context.LoaiSPs.Where(lsp => lsp.TrangThai == 1).ToList();
             return Json(new { isValid = false, html = Helper.RenderRazorViewToString(this, "AddAndEdit", sanPhamModel) });
         }

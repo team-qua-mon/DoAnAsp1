@@ -18,17 +18,24 @@ namespace DoAnAsp.Controllers
         }
         public IActionResult Index()
         {
-            var sanpham = _context.SanPhams.Where(sp => sp.MaLoaiSP == 13).ToList();
-            if(sanpham==null)
-            {
-                return NotFound();
-            }
-            return View(sanpham);
+            ViewBag.ListSPSamSung = _context.SanPhams.Where(sp => sp.TrangThai == 1 && sp.MaLoaiSP==2).OrderBy(sp => sp.MaSP).ToList();
+            ViewBag.ListSPOppo = _context.SanPhams.Where(sp => sp.TrangThai == 1 && sp.MaLoaiSP == 3).OrderBy(sp => sp.MaSP).ToList();
+            ViewBag.ListSPXiaomi = _context.SanPhams.Where(sp => sp.TrangThai == 1 && sp.MaLoaiSP == 4).OrderBy(sp => sp.MaSP).ToList();
+            ViewBag.ListSPVivvo = _context.SanPhams.Where(sp => sp.TrangThai == 1 && sp.MaLoaiSP == 5).OrderBy(sp => sp.MaSP).ToList();
+            ViewBag.ListSPoneplus = _context.SanPhams.Where(sp => sp.TrangThai == 1 && sp.MaLoaiSP == 8).OrderBy(sp => sp.MaSP).ToList();
+            ViewBag.ListSPVimast = _context.SanPhams.Where(sp => sp.TrangThai == 1 && sp.MaLoaiSP == 9).OrderBy(sp => sp.MaSP).ToList();
+
+            ViewBag.ListLSP = _context.LoaiSPs.Where(lsp => lsp.TrangThai == 1).OrderBy(lsp => lsp.MaLoaiSP).ToList();
+            return View();
         }
-       
-        public async Task<IActionResult> shop_grid()
+
+        //public List<LoaiSPModelcs> ListLSP()
+        //{
+        //    return _context.LoaiSPs.Where(lsp => lsp.TrangThai == 1).OrderBy(lsp => lsp.MaLoaiSP).ToList();
+        //}
+        public IActionResult shop_grid()
         {
-            var listLSP = _context.LoaiSPs.ToList();
+            var listLSP = _context.LoaiSPs.Where(lsp => lsp.TrangThai == 1).OrderBy(lsp => lsp.MaLoaiSP).ToList();
             if(listLSP==null)
             { 
                 return NotFound();
@@ -45,7 +52,12 @@ namespace DoAnAsp.Controllers
         }
         public IActionResult Blog_Singe_Slidebar()
         {
-            return View();
+            var listLSP = _context.LoaiSPs.Where(lsp => lsp.TrangThai == 1).OrderBy(lsp => lsp.MaLoaiSP).ToList();
+            if (listLSP == null)
+            {
+                return NotFound();
+            }
+            return View(listLSP);
         }
     }
 }

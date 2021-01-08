@@ -9,6 +9,9 @@
         @await Html.PartialAsync("_SideBarPartial.cshtml")
         <div id="main">
             @await Html.PartialAsync("_HeaderPartial.cshtml")
+            <div class="alert alert-success">
+                demo alert
+            </div>
             @RenderBody()
             @await Html.PartialAsync("_FooterPartial.cshtml")
         </div>
