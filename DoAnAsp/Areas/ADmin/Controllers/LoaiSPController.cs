@@ -14,7 +14,19 @@ namespace DoAnAsp.Areas.ADmin.Controllers
     public class LoaiSPController : Controller
     {
         private readonly DPContext _context;
-     
+        //public void SetMessage(string Message, string type)
+        //{
+        //    TempData["AlertMessage"] = Message;
+        //    if (type == "success")
+        //    {
+        //        TempData["AlertType"] = "alert-success";
+        //    }
+        //    else if (type == "error")
+        //    {
+        //        TempData["AlertType"] = "alert-danger";
+        //    }
+        //}
+        
         public LoaiSPController(DPContext context)
         {
             _context = context;
@@ -81,13 +93,15 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                 {
                      _context.Add(loaiSPModelcs);
                     await _context.SaveChangesAsync();
+                    //SetMessage("Thêm loại sản phẩm thành công", "messages");
                 }
                 else
                 {
                     try
                     {
                         _context.Update(loaiSPModelcs);
-                        await _context.SaveChangesAsync();  
+                        await _context.SaveChangesAsync();
+                        //SetMessage("Sửa loại sản phẩm thành công", "messages");
                     }
                     catch (DbUpdateConcurrencyException)
                     {
@@ -103,6 +117,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                 }
                 return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewLSP", _context.LoaiSPs.Where(u=>u.TrangThai==1).ToList()) });
             }
+            ModelState.AddModelError("", "Thêm mới loại sản phẩm thất bại");
             return Json(new { isValid = false, html = Helper.RenderRazorViewToString(this, "AddAndEdit"), loaiSPModelcs });
         }
 
@@ -183,6 +198,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             var loaiSPModelcs = await _context.LoaiSPs.FindAsync(id);
             loaiSPModelcs.TrangThai = 0;
             await _context.SaveChangesAsync();
+            //SetMessage("Xóa loại sản phẩm thành công", "messages");
             return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewLSP", _context.LoaiSPs.Where(u => u.TrangThai == 1).ToList()) });
         }
 

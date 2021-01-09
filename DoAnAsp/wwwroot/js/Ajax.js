@@ -1,18 +1,20 @@
-﻿
-//btnGET = (url, title) => {
-//    $.ajax({
-//        type: 'POST',
-//        url: "/Admin/Index",
-//        success: function (res) {
-//            if(res.isValid)
-//                alert("Đăng nhập thành công");
-//            if (res.Roles == "")
-//                window.location.href = ""
-//            else
+﻿$(function () {
+    $('#AlertBox').removeClass('hide');
+    $('#AlertBox').delay(1000).slideUp(1000);
+});
 
-//        }
-//    })
-//}
+$(function () {
+    var q = new Date();
+    var m = q.getMonth();
+    var d = q.getDay();
+    var y = q.getFullYear();
+    var dateToday = new Date(d, m, y);
+    var ngaynhapbd = document.getElementById("ValicationBD").value;
+    if (ngaynhapbd < dateToday) {
+        alert("a");
+    }
+})
+
 showModal = (url, title) => {
     $.ajax({
         type: 'GET',

@@ -29,7 +29,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="NgayBD" class="control-label"></label>
-                <input asp-for="NgayBD" class="form-control" />
+                <input id="ValicationBD" name="ValicationBD" asp-for="NgayBD" class="form-control" />
                 <span asp-validation-for="NgayBD" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -41,7 +41,7 @@
                 <input asp-for="TrangThai" type="hidden" value="1" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Lưu" class="btn btn-primary" />
+                <input type="submit" value="Lưu" class="btn btn-primary" onclick="valication()"/>
             </div>
         </form>
     </div>
@@ -52,3 +52,25 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+<script type="text/javascript">
+    //function valication()
+    //{
+    //    var today = new Date();
+
+    //    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    //    var ngaynhapbd = document.getElementById("ValicationBD").value.toString();
+        
+    //    var dateParse = Date.parse(date);
+    //    var ngaylapbdParse = Date.parse(ngaynhapbd);
+
+    //    alert(ngaynhapbd);
+    //    alert(ngaylapbdParse);
+
+    //    if (date == ngaynhapbd) {
+    //        alert("a");
+    //    }
+    //    else {
+    //        alert("b")
+    //    }
+    //}
+</script>

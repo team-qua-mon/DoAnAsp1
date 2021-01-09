@@ -19,6 +19,7 @@ namespace DoAnAsp.Areas.ADmin.Valication
             }
             return ValidationResult.Success;
         }
+        
         public string BaoLoi(string username)
         {
             return $"username{username} đã tồn tại";

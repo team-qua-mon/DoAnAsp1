@@ -1,34 +1,26 @@
-﻿@model IEnumerable<DoAnAsp.Areas.ADmin.Models.SanPhamModel>
+﻿@model DoAnAsp.Areas.ADmin.Models.SanPhamModel
 @{
     ViewData["Title"] = "ProductDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
-<div class="row no-gutters">
+<div class="row no-gutters mt-3 mb-3">
     <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
         <!-- Product Slider -->
         <div class="product-gallery">
             <div class="quickview-slider-active">
                 <div class="single-slider">
-                    <img src="https://via.placeholder.com/569x528" alt="#">
+                    <img src="~/Admin/ImgPro/@Model.HinhAnh" alt="@Model.HinhAnh">
                 </div>
-                <div class="single-slider">
-                    <img src="https://via.placeholder.com/569x528" alt="#">
-                </div>
-                <div class="single-slider">
-                    <img src="https://via.placeholder.com/569x528" alt="#">
-                </div>
-                <div class="single-slider">
-                    <img src="https://via.placeholder.com/569x528" alt="#">
-                </div>
+                
             </div>
         </div>
         <!-- End Product slider -->
     </div>
     <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
         <div class="quickview-content">
-            <h2>Flared Shift Dress</h2>
+            <h2>@Html.DisplayFor(Model=>Model.TenSP)</h2>
             <div class="quickview-ratting-review">
                 <div class="quickview-ratting-wrap">
                     <div class="quickview-ratting">
@@ -44,21 +36,29 @@
                     <span><i class="fa fa-check-circle-o"></i> in stock</span>
                 </div>
             </div>
-            <h3>$29.00</h3>
+            <h3>@Html.DisplayFor(Model=>Model.Gia)</h3>
             <div class="quickview-peragraph">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia iste laborum ad impedit pariatur esse optio tempora sint ullam autem deleniti nam in quos qui nemo ipsum numquam.</p>
+                <p>@Html.DisplayFor(Model=>Model.MoTa)</p>
             </div>
             <div class="size">
                 <div class="row">
                     <div class="col-lg-6 col-12 d-inline">
-                        <h5 class="title">Size:&nbsp;<span>d</span></h5>
-                        <h5 class="title">Size:&nbsp;<span>d</span></h5>
-                        <h5 class="title">Size:&nbsp;<span>d</span></h5>
-                        <h5 class="title">Size:&nbsp;<span>d</span></h5>
-                        <h5 class="title">Size:&nbsp;<span>d</span></h5>
-                        <h5 class="title">Size:&nbsp;<span>d</span></h5>
-                        <h5 class="title">Size:&nbsp;<span>d</span></h5>
-                        <h5 class="title">Size:&nbsp;<span>d</span></h5>
+                        <h5 class="title">Hệ điều hành:&nbsp;<span>@Html.DisplayFor(Model => Model.HDH)</span></h5>
+                        <h5 class="title">Camera sau:&nbsp;<span>@Html.DisplayFor(Model => Model.CameraSau)</span></h5>
+                        <h5 class="title">Camera trước:&nbsp;<span>@Html.DisplayFor(Model => Model.CameraTrc)</span></h5>
+                        <h5 class="title">CPU:&nbsp;<span>@Html.DisplayFor(Model => Model.CPU)</span></h5>
+                        <h5 class="title">RAM:&nbsp;<span>@Html.DisplayFor(Model => Model.RAM)</span></h5>
+                        <h5 class="title">ROM:&nbsp;<span>@Html.DisplayFor(Model => Model.ROM)</span></h5>
+                        <h5 class="title">PIN:&nbsp;<span>@Html.DisplayFor(Model => Model.Pin)</span></h5>
+                        <h5 class="title">Trang thái:&nbsp;<span>@if (Model.TrangThai==1)
+                        {
+                            @:Còn hàng
+                        }
+                        else
+                        {
+                            @:Hết hàng
+                        }
+                        </span></h5>
 
                     </div>
                     <div class="col-lg-6 col-12">

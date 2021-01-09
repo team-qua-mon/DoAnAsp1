@@ -15,6 +15,18 @@ namespace DoAnAsp.Areas.ADmin.Controllers
     {
         private readonly DPContext _context;
 
+        //public void SetMessage(string Message, string type)
+        //{
+        //    TempData["AlertMessage"] = Message;
+        //    if (type == "success")
+        //    {
+        //        TempData["AlertType"] = "alert-success";
+        //    }
+        //    else if (type == "error")
+        //    {
+        //        TempData["AlertType"] = "alert-danger";
+        //    }
+        //}
         public KhuyenMaiController(DPContext context)
         {
             _context = context;
@@ -87,6 +99,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                 {
                     _context.Add(khuyenMaiModel);
                     await _context.SaveChangesAsync();
+                    //SetMessage("Thêm khuyến mãi thành công", "messages");
                 }
                 else
                 {
@@ -94,6 +107,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                     {
                         _context.Update(khuyenMaiModel);
                         await _context.SaveChangesAsync();
+                        //SetMessage("Sửa khuyến mãi thành công", "messages");
                     }
                     catch (DbUpdateConcurrencyException)
                     {
@@ -107,9 +121,11 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                         }   
                     }
                 }
+                ViewBag.ListSP = _context.SanPhams.Where(u => u.TrangThai == 1).ToList();
                 return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewKhuyenMai", _context.KhuyenMais.Where(u => u.TrangThai == 1).ToList()) });
             }
             ViewBag.ListSP = _context.SanPhams.Where(u => u.TrangThai == 1).ToList();
+            ModelState.AddModelError("", "Thêm mới khuyến mãi thất bại");
             return Json(new { isValid = false, html = Helper.RenderRazorViewToString(this, "AddAndEdit", khuyenMaiModel) });
         }
             
@@ -140,6 +156,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             var khuyenMaiModel = await _context.KhuyenMais.FindAsync(id);
             _context.Remove(khuyenMaiModel);
             await _context.SaveChangesAsync();
+            //SetMessage("Xóa khuyến mãi thành công", "messages");
             return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewKhuyenMai", _context.KhuyenMais.ToList()) });
 
         }

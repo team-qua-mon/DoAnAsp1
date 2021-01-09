@@ -10,6 +10,7 @@
 <p>
     <a class="btn btn-success" onclick="showModal('@Url.Action("AddAndEdit","NguoiDung",null,Context.Request.Scheme)','Thêm Người Dùng')">Thêm Người Dùng</a>
 </p>
+    @*@await Html.PartialAsync("/Areas/ADmin/Views/Shared/MessagesPartial.cshtml")*@
 <form asp-action="Index" method="get">
     <input type="text" name="Search" placeholder="Search..." class="h-25" />
     <input type="submit" value="Tìm kiếm" class=" btn btn-primary" />

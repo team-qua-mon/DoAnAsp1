@@ -16,7 +16,18 @@ namespace DoAnAsp.Areas.ADmin.Controllers
     public class NguoiDungController : Controller
     {
         private readonly DPContext _context;
-
+        //public void SetMessage(string Message, string type)
+        //{
+        //    TempData["AlertMessage"] = Message;
+        //    if (type == "success")
+        //    {
+        //        TempData["AlertType"] = "alert-success";
+        //    }
+        //    else if (type == "error")
+        //    {
+        //        TempData["AlertType"] = "alert-danger";
+        //    }
+        //}
         public NguoiDungController(DPContext context)
         {
             _context = context;
@@ -101,6 +112,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                         [ful.FileName.Split(".").Length - 1];
                     _context.Update(nguoiDungModel);
                     await _context.SaveChangesAsync();
+                    //SetMessage("Thêm người dùng thành công", "messages");
                 }
                 else
                 {
@@ -123,7 +135,8 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                         }
                         _context.Update(nguoiDungModel);
                         await _context.SaveChangesAsync();
-                        
+                        //SetMessage("Sửa người dùng thành công", "messages");
+
                     }
                     catch (DbUpdateConcurrencyException)
                     {
@@ -140,62 +153,11 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                 ViewBag.ListPQ = _context.PhanQuyens.ToList();
                 return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewNguoiDung", _context.NguoiDungs.Where(u => u.TrangThai == 1).ToList()) });
             }
+            ModelState.AddModelError("", "Thêm mới người dùng thất bại");
             ViewBag.ListPQ = _context.PhanQuyens.ToList();
             return Json(new { isValid = false, html = Helper.RenderRazorViewToString(this, "AddAndEdit", nguoiDungModel) });
         }
 
-        //// GET: ADmin/NguoiDung/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var nguoiDungModel = await _context.NguoiDungs.FindAsync(id);
-        //    if (nguoiDungModel == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["MAQuyen"] = new SelectList(_context.PhanQuyens, "MAQuyen", "TenQuyen", nguoiDungModel.MAQuyen);
-        //    return View(nguoiDungModel);
-        //}
-
-        //// POST: ADmin/NguoiDung/Edit/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        //// more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("MaND,Ho,TenLot,TenND,GioiTinh,HinhAnh,SDT,Andress,UserName,PassWord,TrangThai,MAQuyen")] NguoiDungModel nguoiDungModel)
-        //{
-        //    if (id != nguoiDungModel.MaND)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(nguoiDungModel);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!NguoiDungModelExists(nguoiDungModel.MaND))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["MAQuyen"] = new SelectList(_context.PhanQuyens, "MAQuyen", "TenQuyen", nguoiDungModel.MAQuyen);
-        //    return View(nguoiDungModel);
-        //}
 
         // GET: ADmin/NguoiDung/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -225,6 +187,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             var nguoiDungModel = await _context.NguoiDungs.FindAsync(id);
             nguoiDungModel.TrangThai = 0;
             await _context.SaveChangesAsync();
+            //SetMessage("Xóa người dùng thành công", "messages");
             return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewNguoiDung", _context.NguoiDungs.Where(u => u.TrangThai == 1).ToList()) });
 
         }

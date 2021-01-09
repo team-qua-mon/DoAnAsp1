@@ -1,0 +1,9 @@
+﻿@*thông báo*@
+
+@if (TempData["AlertMessage"] != null)
+{
+    <div id="AlertBox" class="alert @TempData["AlertType"] hide">
+        @TempData["AlertMessage"]
+    </div>
+}
+@* -------- *@

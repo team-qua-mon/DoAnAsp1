@@ -5,11 +5,12 @@
 
 }
 
-<h1>Index</h1>
+
 
 <p>
-    <a class="btn btn-success" onclick="showModal('@Url.Action("AddAndEdit","SanPham",null,Context.Request.Scheme)','Thêm một sản phẩm')" >Thêm sản phẩm</a>
+    <a class="btn btn-success" onclick="showModal('@Url.Action("AddAndEdit","SanPham",null,Context.Request.Scheme)','Thêm một sản phẩm')">Thêm sản phẩm</a>
 </p>
+    @*@await Html.PartialAsync("/Areas/ADmin/Views/Shared/MessagesPartial.cshtml")*@
 <form asp-action="Index" method="get">
     <input type="text" name="Search" placeholder="Search..." class="h-25" />
     <input type="submit" value="Tìm kiếm" class=" btn btn-primary" />
@@ -25,7 +26,7 @@
             </div>
             <div class="card-body px-0 pb-0">
                 <div class="table-responsive">
-                    <table class="table mb-0" id="table1">
+                    <table class="table mb-0" id="table1" onsubmit="return jQueryAjaxPost(this);">
                         <thead>
                             <tr>
                                 <th>
@@ -143,11 +144,11 @@
                                         @Html.DisplayFor(modelItem => item.LoaiSPs.TenLSP)
                                     </td>
                                     <td>
-                                        <a class="btn btn-danger" onclick="showModal('@Url.Action("AddAndEdit","SanPham",new { id = item.MaSP },Context.Request.Scheme)','Sửa một sản phẩm')">Sửa</a> 
-                                        <a class="btn btn-danger" asp-action="Details" asp-route-id="@item.MaSP">Details</a>    
+                                        <a class="btn btn-danger" onclick="showModal('@Url.Action("AddAndEdit","SanPham",new { id = item.MaSP },Context.Request.Scheme)','Sửa một sản phẩm')">Sửa</a>
+                                        <a class="btn btn-danger" asp-action="Details" asp-route-id="@item.MaSP">Details</a>
                                         <form asp-action="Delete" asp-route-id="@item.MaSP" onsubmit="return jQueryAjaxDelete(this);">
                                             <input type="hidden" asp-for="@item.MaSP" />
-                                            <input type="submit"  value="Xóa" class="btn btn-success" />
+                                            <input type="submit" value="Xóa" class="btn btn-success" />
                                         </form>
                                     </td>
                                 </tr>

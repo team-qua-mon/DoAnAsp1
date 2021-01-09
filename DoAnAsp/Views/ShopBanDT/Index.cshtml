@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<DoAnAsp.Areas.ADmin.Models.SanPhamModel>
 @{
     ViewData["Title"] = "Index";
     var ListSPSamSung = (List<DoAnAsp.Areas.ADmin.Models.SanPhamModel>)ViewBag.ListSPSamSung;
@@ -8,8 +8,14 @@
     var ListSPOneplus = (List<DoAnAsp.Areas.ADmin.Models.SanPhamModel>)ViewBag.ListSPoneplus;
     var ListSPVimast = (List<DoAnAsp.Areas.ADmin.Models.SanPhamModel>)ViewBag.ListSPVimast;
 
-
+    var ListSPSaoNhieu = (List<DoAnAsp.Areas.ADmin.Models.SanPhamModel>)ViewBag.ListSaoNhieu;
+    var ListSPSale = (List<DoAnAsp.Areas.ADmin.Models.KhuyenMaiModel>)ViewBag.ListSPSale;
     var ListLSP = (List<DoAnAsp.Areas.ADmin.Models.LoaiSPModelcs>)ViewBag.ListLSP;
+
+
+
+    var ListLSPsale = (List<DoAnAsp.Areas.ADmin.Models.SanPhamModel>)(List<DoAnAsp.Areas.ADmin.Models.KhuyenMaiModel>)ViewBag.ListLSP;
+
 }
 <!-- Slider Area -->
 <section class="hero-slider">
@@ -88,7 +94,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="section-title">
-                    <h2>Trending Item</h2>
+                    <h2>Theo mục</h2>
                 </div>
             </div>
         </div>
@@ -118,7 +124,8 @@
                                         <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                                             <div class="single-product">
                                                 <div class="product-img">
-                                                    <a asp-controller="ProductDetail" asp-action="ProductDetail">
+                                                    @*<a class="btn btn-danger" asp-action="Details" asp-route-id="@item.MaSP">Details</a>*@
+                                                    <a asp-controller="ProductDetail" asp-action="ProductDetail" asp-route-id="@sanpham.MaSP">
                                                         <img class="default-img" src="~/Admin/ImgPro/@sanpham.HinhAnh" alt="#">
                                                         <img class="hover-img" src="~/Admin/ImgPro/@sanpham.HinhAnh" alt="#">
                                                     </a>
@@ -157,7 +164,7 @@
                                     <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                                         <div class="single-product">
                                             <div class="product-img">
-                                                <a href="product-details.html">
+                                                <a asp-controller="ProductDetail" asp-action="ProductDetail" asp-route-id="@item.MaSP">
                                                     <img class="default-img" src="~/Admin/ImgPro/@item.HinhAnh" alt="@item.HinhAnh">
                                                     <img class="hover-img" src="~/Admin/ImgPro/@item.HinhAnh" alt="#">
                                                 </a>
@@ -194,7 +201,7 @@
                                         <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                                             <div class="single-product">
                                                 <div class="product-img">
-                                                    <a href="product-details.html">
+                                                    <a asp-controller="ProductDetail" asp-action="ProductDetail" asp-route-id="@item.MaSP">
                                                         <img class="default-img" src="~/Admin/ImgPro/@item.HinhAnh" alt="@item.HinhAnh">
                                                         <img class="hover-img" src="~/Admin/ImgPro/@item.HinhAnh" alt="@item.HinhAnh">
                                                     </a>
@@ -231,7 +238,7 @@
                                         <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                                             <div class="single-product">
                                                 <div class="product-img">
-                                                    <a href="product-details.html">
+                                                    <a asp-controller="ProductDetail" asp-action="ProductDetail" asp-route-id="@item.MaSP">
                                                         <img class="default-img" src="~/Admin/ImgPro/@item.HinhAnh" alt="@item.HinhAnh">
                                                         <img class="hover-img" src="~/Admin/ImgPro/@item.HinhAnh" alt="#">
                                                     </a>
@@ -268,7 +275,7 @@
                                         <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                                             <div class="single-product">
                                                 <div class="product-img">
-                                                    <a href="product-details.html">
+                                                    <a asp-controller="ProductDetail" asp-action="ProductDetail" asp-route-id="@item.MaSP">
                                                         <img class="default-img" src="~/Admin/ImgPro/@item.HinhAnh" alt="@item.HinhAnh">
                                                         <img class="hover-img" src="~/Admin/ImgPro/@item.HinhAnh" alt="#">
                                                     </a>
@@ -305,7 +312,7 @@
                                         <div class="col-xl-3 col-lg-4 col-md-4 col-12">
                                             <div class="single-product">
                                                 <div class="product-img">
-                                                    <a href="product-details.html">
+                                                    <a asp-controller="ProductDetail" asp-action="ProductDetail" asp-route-id="@item.MaSP">
                                                         <img class="default-img" src="~/Admin/ImgPro/@item.HinhAnh" alt="@item.HinhAnh">
                                                         <img class="hover-img" src="~/Admin/ImgPro/@item.HinhAnh" alt="#">
                                                     </a>
@@ -506,64 +513,33 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="shop-section-title">
-                            <h1>On sale</h1>
+                            <h1>Được đánh giá nhiều nhất</h1>
                         </div>
                     </div>
                 </div>
                 <!-- Start Single List  -->
-                <div class="single-list">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="list-image overlay">
-                                <img src="https://via.placeholder.com/115x140" alt="#">
-                                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+                @foreach (var item in ListSPSaoNhieu)
+                {
+                    <div class="single-list">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="list-image overlay">
+                                    <img src="~/Admin/ImgPro/@item.HinhAnh" alt="@item.HinhAnh">
+                                    <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12 no-padding">
-                            <div class="content">
-                                <h4 class="title"><a href="#">Licity jelly leg flat Sandals</a></h4>
-                                <p class="price with-discount">$59</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Single List  -->
-                <!-- Start Single List  -->
-                <div class="single-list">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="list-image overlay">
-                                <img src="https://via.placeholder.com/115x140" alt="#">
-                                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12 no-padding">
-                            <div class="content">
-                                <h5 class="title"><a href="#">Licity jelly leg flat Sandals</a></h5>
-                                <p class="price with-discount">$44</p>
+                            <div class="col-lg-6 col-md-6 col-12 no-padding">
+                                <div class="content">
+                                    <h4 class="title"><a href="#">@item.TenSP</a></h4>
+                                    <p class="price with-discount">@item.Gia</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- End Single List  -->
-                <!-- Start Single List  -->
-                <div class="single-list">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="list-image overlay">
-                                <img src="https://via.placeholder.com/115x140" alt="#">
-                                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12 no-padding">
-                            <div class="content">
-                                <h5 class="title"><a href="#">Licity jelly leg flat Sandals</a></h5>
-                                <p class="price with-discount">$89</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Single List  -->
+
+                }
+              
             </div>
             <div class="col-lg-4 col-md-6 col-12">
                 <div class="row">
@@ -573,60 +549,28 @@
                         </div>
                     </div>
                 </div>
-                <!-- Start Single List  -->
-                <div class="single-list">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="list-image overlay">
-                                <img src="https://via.placeholder.com/115x140" alt="#">
-                                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+                @foreach (var item in a)
+                {
+                    <div class="single-list">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="list-image overlay">
+                                    <img src="~/Admin/ImgPro/@item." alt="">
+                                    <a  asp-controller="ProductDetail" asp-action="ProductDetail" asp-route-id="" class="buy"><i class="fa fa-shopping-bag"></i></a>
+
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12 no-padding">
-                            <div class="content">
-                                <h5 class="title"><a href="#">Licity jelly leg flat Sandals</a></h5>
-                                <p class="price with-discount">$65</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Single List  -->
-                <!-- Start Single List  -->
-                <div class="single-list">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="list-image overlay">
-                                <img src="https://via.placeholder.com/115x140" alt="#">
-                                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12 no-padding">
-                            <div class="content">
-                                <h5 class="title"><a href="#">Licity jelly leg flat Sandals</a></h5>
-                                <p class="price with-discount">$33</p>
+                            <div class="col-lg-6 col-md-6 col-12 no-padding">
+                                <div class="content">
+                                    <h5 class="title"><a  asp-controller="ProductDetail" asp-action="ProductDetail" asp-route-id=""></a></h5>
+                                    <p class="price with-discount"></p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- End Single List  -->
-                <!-- Start Single List  -->
-                <div class="single-list">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="list-image overlay">
-                                <img src="https://via.placeholder.com/115x140" alt="#">
-                                <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12 no-padding">
-                            <div class="content">
-                                <h5 class="title"><a href="#">Licity jelly leg flat Sandals</a></h5>
-                                <p class="price with-discount">$77</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Single List  -->
+
+                }
+               
             </div>
             <div class="col-lg-4 col-md-6 col-12">
                 <div class="row">

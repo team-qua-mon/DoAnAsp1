@@ -9,9 +9,7 @@
         @await Html.PartialAsync("_SideBarPartial.cshtml")
         <div id="main">
             @await Html.PartialAsync("_HeaderPartial.cshtml")
-            <div class="alert alert-success">
-                demo alert
-            </div>
+
             @RenderBody()
             @await Html.PartialAsync("_FooterPartial.cshtml")
         </div>
@@ -28,6 +26,7 @@
                 <div class="modal-body">
 
                 </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng nè</button>
             </div>
         </div>
     </div>
@@ -46,3 +45,4 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+f
