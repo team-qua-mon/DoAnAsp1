@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using DoAnAsp.Areas.ADmin.Data;
 using DoAnAsp.Areas.ADmin.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
+using Newtonsoft.Json;
 
 namespace DoAnAsp.Controllers
 {
@@ -30,14 +32,16 @@ namespace DoAnAsp.Controllers
         {
             //var y = StringProcessing.CreateMD5Hash("aa");
             var r = _context.NguoiDungs.Where(m => m.UserName == member.UserName && m.PassWord ==
-             StringProcessing.CreateMD5Hash(member.PassWord)).ToList();
+             (member.PassWord)).ToList();
             if(r.Count==0)
             {
 
                 var urlKcoTK = Url.RouteUrl(new { controller = "Login", action = "loginIndex" });
                 return Redirect(urlKcoTK);
             }
-            else if(r[0].MAQuyen == 1)
+            var str = JsonConvert.SerializeObject(member);
+            HttpContext.Session.SetString("user", str);
+            if(r[0].MAQuyen == 1)
             {
                 var urlUser = Url.RouteUrl(new { controller = "ShopBanDT", action = "Index" });
                 return Redirect(urlUser);

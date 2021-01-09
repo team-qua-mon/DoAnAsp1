@@ -11,6 +11,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         [Area("ADmin")]
         public IActionResult Index()
         {
+
             return View();
         }
     }

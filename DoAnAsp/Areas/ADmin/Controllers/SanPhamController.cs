@@ -38,7 +38,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             {
                 ViewBag.ListLSP = _context.LoaiSPs.ToList();
                 var sanpham = _context.SanPhams.Where(sp => sp.TenSP.Contains(Search)).ToList();
-                return View(sanpham);
+                return View("Index",sanpham);
 
             }
             var dPContext = _context.SanPhams.Where(u=>u.TrangThai==1).Include(s => s.LoaiSPs);
