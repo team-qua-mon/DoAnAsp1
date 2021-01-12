@@ -7,22 +7,19 @@ using System.Threading.Tasks;
 
 namespace DoAnAsp.Areas.ADmin.Valication
 {
-    public class UniqueUserName:ValidationAttribute
+    public class ValicationNgayBD: ValidationAttribute
     {
+        DateTime d = DateTime.Now;
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var _context = (DPContext)validationContext.GetService(typeof(DPContext));
-            var entity = _context.NguoiDungs.SingleOrDefault(u => u.UserName == value.ToString());
-            if(entity!=null)
-            {
-                return new ValidationResult(BaoLoi(value.ToString()));
-            }
+            //var ngayBD = _context.KhuyenMais.Single(ng=>ng.NgayBD>)
             return ValidationResult.Success;
         }
-        
+
         public string BaoLoi(string username)
         {
-            return $"Username {username} đã tồn tại";
+            return $"username{username} đã tồn tại";
         }
     }
 }

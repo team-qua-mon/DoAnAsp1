@@ -14,18 +14,18 @@ namespace DoAnAsp.Areas.ADmin.Controllers
     public class SanPhamController : Controller
     {
         private readonly DPContext _context;
-        //public void SetMessage(string Message, string type)
-        //{
-        //    TempData["AlertMessage"] = Message;
-        //    if (type == "success")
-        //    {
-        //        TempData["AlertType"] = "alert-success";
-        //    }
-        //    else if (type == "error")
-        //    {
-        //        TempData["AlertType"] = "alert-danger";
-        //    }
-        //}
+        public void SetMessage(string Message, string type)
+        {
+            TempData["AlertMessage"] = Message;
+            if (type == "success")
+            {
+                TempData["AlertType"] = "alert-success";
+            }
+            else if (type == "error")
+            {
+                TempData["AlertType"] = "alert-danger";
+            }
+        }
         public SanPhamController(DPContext context)
         {
             _context = context;
@@ -113,7 +113,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             
                     _context.Update(sanPhamModel);
                     await _context.SaveChangesAsync();
-                    //SetMessage("Thêm sản phẩm thành công", "messages");
+                    SetMessage("Thêm sản phẩm thành công", "messages");
                 }
                 else
                 {
@@ -136,7 +136,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                         }
                         _context.Update(sanPhamModel);
                         await _context.SaveChangesAsync();
-                        //SetMessage("Sửa sản phẩm thành công", "messages");
+                        SetMessage("Sửa sản phẩm thành công", "messages");
                     }
                     catch (DbUpdateConcurrencyException)
                     {
@@ -191,7 +191,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             sanPhamModel.TrangThai = 0;
             _context.Update(sanPhamModel);
             await _context.SaveChangesAsync();
-            //SetMessage("Xóa sản phẩm thành công", "messages");
+            SetMessage("Xóa sản phẩm thành công", "messages");
             return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewSanPham", _context.SanPhams.Where(u=>u.TrangThai==1).ToList()) });
         }
 

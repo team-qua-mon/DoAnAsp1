@@ -16,18 +16,18 @@ namespace DoAnAsp.Areas.ADmin.Controllers
     public class NguoiDungController : Controller
     {
         private readonly DPContext _context;
-        //public void SetMessage(string Message, string type)
-        //{
-        //    TempData["AlertMessage"] = Message;
-        //    if (type == "success")
-        //    {
-        //        TempData["AlertType"] = "alert-success";
-        //    }
-        //    else if (type == "error")
-        //    {
-        //        TempData["AlertType"] = "alert-danger";
-        //    }
-        //}
+        public void SetMessage(string Message, string type)
+        {
+            TempData["AlertMessage"] = Message;
+            if (type == "success")
+            {
+                TempData["AlertType"] = "alert-success";
+            }
+            else if (type == "error")
+            {
+                TempData["AlertType"] = "alert-danger";
+            }
+        }
         public NguoiDungController(DPContext context)
         {
             _context = context;
@@ -112,7 +112,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                         [ful.FileName.Split(".").Length - 1];
                     _context.Update(nguoiDungModel);
                     await _context.SaveChangesAsync();
-                    //SetMessage("Thêm người dùng thành công", "messages");
+                    SetMessage("Thêm người dùng thành công", "messages");
                 }
                 else
                 {
@@ -135,7 +135,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                         }
                         _context.Update(nguoiDungModel);
                         await _context.SaveChangesAsync();
-                        //SetMessage("Sửa người dùng thành công", "messages");
+                        SetMessage("Sửa người dùng thành công", "messages");
 
                     }
                     catch (DbUpdateConcurrencyException)
@@ -187,7 +187,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             var nguoiDungModel = await _context.NguoiDungs.FindAsync(id);
             nguoiDungModel.TrangThai = 0;
             await _context.SaveChangesAsync();
-            //SetMessage("Xóa người dùng thành công", "messages");
+            SetMessage("Xóa người dùng thành công", "messages");
             return Json(new { isValid = true, html = Helper.RenderRazorViewToString(this, "_ViewNguoiDung", _context.NguoiDungs.Where(u => u.TrangThai == 1).ToList()) });
 
         }

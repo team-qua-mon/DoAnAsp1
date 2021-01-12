@@ -39,6 +39,14 @@ namespace DoAnAsp.Controllers
             //loại sản phẩm
             ViewBag.ListLSP = _context.LoaiSPs.Where(lsp => lsp.TrangThai == 1).OrderBy(lsp => lsp.MaLoaiSP).ToList();
             GetUser();
+            DateTime d = DateTime.Now;
+
+            //var spbannhieu= (from cthd in _context.ChiTietHoaDons
+            //                join sp in _context.SanPhams on cthd.MaSP equals sp.MaSP
+            //                join hd in _context.HoaDons on cthd.MaHD equals hd.MaHD
+            //                where hd.NgayLap==(d.AddMonths(-1)) 
+            //                select 
+            //                )
             return View();
         }
 
@@ -76,12 +84,12 @@ namespace DoAnAsp.Controllers
         }
         public void GetUser()
         {
-            //JObject us = JObject.Parse(HttpContext.Session.GetString("user"));
-            //NguoiDungModel ND = new NguoiDungModel();
-            //ND.UserName = us.SelectToken("UserName").ToString();
-            //ND.PassWord = us.SelectToken("PassWord").ToString();
-            //ViewBag.ND = _context.NguoiDungs.Where(nd => nd.UserName == ND.UserName).ToList();
-            
+            JObject us = JObject.Parse(HttpContext.Session.GetString("user"));
+            NguoiDungModel ND = new NguoiDungModel();
+            ND.UserName = us.SelectToken("UserName").ToString();
+            ND.PassWord = us.SelectToken("PassWord").ToString();
+            ViewBag.ND = _context.NguoiDungs.Where(nd => nd.UserName == ND.UserName).ToList();
+
         }
     }
 }

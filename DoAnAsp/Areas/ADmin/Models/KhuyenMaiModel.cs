@@ -25,7 +25,7 @@ namespace DoAnAsp.Areas.ADmin.Models
         [Display(Name = "Gái trị")]
         public int GiaTri { get; set; }
 
-
+        [ValicationNgayBD]
         [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
         [Display(Name = "Ngày bắt đầu")]
         [DataType(DataType.Date)]

@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DoAnAsp.Areas.ADmin.Data;
+using DoAnAsp.Areas.ADmin.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 
 namespace DoAnAsp.Controllers
 {
@@ -15,8 +18,18 @@ namespace DoAnAsp.Controllers
         {
             _context = context;
         }
+        public void GetUser()
+        {
+            JObject us = JObject.Parse(HttpContext.Session.GetString("user"));
+            NguoiDungModel ND = new NguoiDungModel();
+            ND.UserName = us.SelectToken("UserName").ToString();
+            ND.PassWord = us.SelectToken("PassWord").ToString();
+            ViewBag.ND = _context.NguoiDungs.Where(nd => nd.UserName == ND.UserName).ToList();
+
+        }
         public async Task<IActionResult> ProductDetail(int? id)
         {
+            GetUser();
                 if (id == null)
                 {
                     return NotFound();

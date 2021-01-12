@@ -20,7 +20,7 @@ namespace DoAnAsp.Areas.ADmin.Models
 
         [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
         [Display(Name = "Giá")]
-        [Range(0,1000000,ErrorMessage =("Giá phải lớn hơn 100 và nhỏ hơn 1000000"))]
+        [Range(0,1000000,ErrorMessage =("Giá phải lớn hơn 0 và nhỏ hơn 1000000"))]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Gia { get; set; }
