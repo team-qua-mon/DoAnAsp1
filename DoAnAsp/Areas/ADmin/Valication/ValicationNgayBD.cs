@@ -10,16 +10,27 @@ namespace DoAnAsp.Areas.ADmin.Valication
     public class ValicationNgayBD: ValidationAttribute
     {
         DateTime d = DateTime.Now;
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            var _context = (DPContext)validationContext.GetService(typeof(DPContext));
-            //var ngayBD = _context.KhuyenMais.Single(ng=>ng.NgayBD>)
-            return ValidationResult.Success;
-        }
+        //protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        //{
+        //    var _context = (DPContext)validationContext.GetService(typeof(DPContext));
+        //    if (value==null)
+        //    {
+        //        return new ValidationResult(BaoLoi1());
+        //    }
+        //    else
+        //    {
+                
+        //        return ValidationResult.Success;
+        //    }
+        //}
 
-        public string BaoLoi(string username)
-        {
-            return $"username{username} đã tồn tại";
-        }
+        //public string BaoLoi(string username)
+        //{
+        //    return $"username{username} đã tồn tại";
+        //}
+        //public string BaoLoi1()
+        //{
+        //    return $"Không được để trống";
+        //}
     }
 }

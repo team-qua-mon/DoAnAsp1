@@ -12,17 +12,29 @@ namespace DoAnAsp.Areas.ADmin.Valication
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var _context = (DPContext)validationContext.GetService(typeof(DPContext));
-            var entity = _context.NguoiDungs.SingleOrDefault(u => u.UserName == value.ToString());
-            if(entity!=null)
+            if(value==null)
             {
-                return new ValidationResult(BaoLoi(value.ToString()));
+                return new ValidationResult(BaoLoi1());
             }
-            return ValidationResult.Success;
+            else
+            {
+                var entity = _context.NguoiDungs.SingleOrDefault(u => u.UserName == value.ToString());
+                if (entity!=null)
+                {
+                    return new ValidationResult(BaoLoi(value.ToString()));
+                }
+                return ValidationResult.Success;
+            }
+            
         }
         
         public string BaoLoi(string username)
         {
             return $"Username {username} đã tồn tại";
+        }
+        public string BaoLoi1()
+        {
+            return $"Username";
         }
     }
 }

@@ -16,6 +16,11 @@ namespace DoAnAsp.Areas.ADmin.Controllers
     public class NguoiDungController : Controller
     {
         private readonly DPContext _context;
+        
+        public NguoiDungController(DPContext context)
+        {
+            _context = context;
+        }
         public void SetMessage(string Message, string type)
         {
             TempData["AlertMessage"] = Message;
@@ -28,11 +33,6 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                 TempData["AlertType"] = "alert-danger";
             }
         }
-        public NguoiDungController(DPContext context)
-        {
-            _context = context;
-        }
-
         // GET: ADmin/NguoiDung
         public async Task<IActionResult> Index(string Search)
         {

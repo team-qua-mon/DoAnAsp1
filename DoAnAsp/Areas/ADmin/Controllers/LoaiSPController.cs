@@ -91,7 +91,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
             {
                 if (id==0)
                 {
-                     _context.Add(loaiSPModelcs);
+                     _context.Update(loaiSPModelcs);
                     await _context.SaveChangesAsync();
                     SetMessage("Thêm loại sản phẩm thành công", "messages");
                 }
