@@ -2,6 +2,7 @@
     var listND = (List<NguoiDungModel>)ViewBag.ND;
    
 }
+
 <!-- Header -->
 <header class="header shop">
     <!-- Topbar -->
@@ -90,7 +91,7 @@
                                        data-toggle="dropdown"
                                        class="nav-link dropdown-toggle nav-link-lg nav-link-user p-0">
                                         <div class="avatar mr-1">
-                                            <img src="~/Admin/assets/images/avatar/avatar-s-1.png"
+                                            <img src="~/Admin/ImgNgDung/@listND[0].HinhAnh"
                                                  alt=""
                                                  srcset="" class="anh-user" />
                                         </div>
@@ -102,7 +103,7 @@
                                         <a class="dropdown-item" href="#"><i class="ti-user"></i>My account</a>
                                         <a class="dropdown-item" href="#"><i class="ti-settings"></i> Settings</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#"><i class="" data-feather="log-out"></i> Logout</a>
+                                        <a class="dropdown-item" asp-action="Logout"><i class="" data-feather="log-out"></i> Logout</a>
                                     </div>
                                 </li>
                             </ul>

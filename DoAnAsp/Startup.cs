@@ -62,7 +62,7 @@ namespace DoAnAsp
                 endpoints.MapAreaControllerRoute(
                 name: "MyArea",
                 areaName: "Admin",
-                pattern: "Admin/{controller=HomeAdmin}/{action=Index}/{id?}");
+                pattern: "Admin/{controller=Login}/{action=loginIndex}/{id?}");
 
                // endpoints.MapControllerRoute(
                //name: "areas",
@@ -71,7 +71,7 @@ namespace DoAnAsp
 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Login}/{action=loginIndex}/{id?}");
+                    pattern: "{controller=ShopBanDT}/{action=Index}/{id?}");
             });
         }
     }

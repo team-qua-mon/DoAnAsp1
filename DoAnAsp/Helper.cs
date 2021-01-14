@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DoAnAsp.Areas.ADmin.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +16,7 @@ namespace DoAnAsp
 {
     public class Helper
     {
-
+         
         public static string RenderRazorViewToString(Controller controller, string viewName, object model = null)
         {
             controller.ViewData.Model = model;
@@ -49,5 +51,6 @@ namespace DoAnAsp
             }
         }
 
+       
     }
 }

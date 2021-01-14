@@ -9,6 +9,7 @@ using DoAnAsp.Areas.ADmin.Data;
 using DoAnAsp.Areas.ADmin.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace DoAnAsp.Areas.ADmin.Controllers
 {
@@ -36,6 +37,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // GET: ADmin/NguoiDung
         public async Task<IActionResult> Index(string Search)
         {
+            GetUser();
             if (Search != null)
             {
                 ViewBag.ListPQ = _context.PhanQuyens.ToList();
@@ -196,5 +198,19 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         {
             return _context.NguoiDungs.Any(e => e.MaND == id);
         }
+        public void GetUser()
+        {
+            if (HttpContext.Session.GetString("user") != null)
+            {
+                JObject us = JObject.Parse(HttpContext.Session.GetString("user"));
+                NguoiDungModel ND = new NguoiDungModel();
+                ND.UserName = us.SelectToken("UserName").ToString();
+                ND.PassWord = us.SelectToken("PassWord").ToString();
+                ViewBag.ND = _context.NguoiDungs.Where(nd => nd.UserName == ND.UserName).ToList();
+            }
+
+
+        }
+        
     }
 }

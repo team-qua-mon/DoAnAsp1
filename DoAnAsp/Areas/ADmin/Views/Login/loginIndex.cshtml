@@ -11,8 +11,9 @@
 <link rel="stylesheet" href="~/Admin/assets/css/app.css" />
 <link rel="shortcut icon" href="~/Admin/assets/images/favicon.svg" type="image/x-icon" />
 <link href="~/Admin/assets/css/admin.css" rel="stylesheet" />
-<link href="~/Admin/assets/css/login.css" rel="stylesheet" />
 
+
+<link href="~/Admin/assets/css/login.css" rel="stylesheet" />
 
 
 
@@ -28,7 +29,7 @@
         <form asp-action="loginIndex" asp-controller="Login" method="post">
             @if (Context.Session.GetString("user") == null)
             {
-                @await Html.PartialAsync("/Views/Shared/MessagesPartial.cshtml")
+                @await Html.PartialAsync("/Areas/ADmin/Views/Shared/MessagesPartial.cshtml")
             }
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -54,6 +55,4 @@
         </div>
     </div>
 </div>
-
-
 

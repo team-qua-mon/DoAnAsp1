@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DoAnAsp.Areas.ADmin.Data;
 using DoAnAsp.Areas.ADmin.Models;
+using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace DoAnAsp.Areas.ADmin.Controllers
 {
@@ -35,7 +37,8 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // GET: ADmin/KhuyenMai
         public async Task<IActionResult> Index(string Search)
         {
-            if(Search!=null)
+            GetUser();
+            if (Search!=null)
             {
                 ViewBag.ListSP = _context.SanPhams.Where(u => u.TrangThai == 1).ToList();
                 var khuyenmai = _context.KhuyenMais.Where(km => km.TenKM.Contains(Search)).ToList();
@@ -165,5 +168,19 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         {
             return _context.KhuyenMais.Any(e => e.MaKM == id);
         }
+        public void GetUser()
+        {
+            if (HttpContext.Session.GetString("user") != null)
+            {
+                JObject us = JObject.Parse(HttpContext.Session.GetString("user"));
+                NguoiDungModel ND = new NguoiDungModel();
+                ND.UserName = us.SelectToken("UserName").ToString();
+                ND.PassWord = us.SelectToken("PassWord").ToString();
+                ViewBag.ND = _context.NguoiDungs.Where(nd => nd.UserName == ND.UserName).ToList();
+            }
+
+
+        }
+        
     }
 }
