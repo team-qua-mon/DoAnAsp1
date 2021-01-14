@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DoAnAsp.Areas.ADmin.Data;
@@ -8,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using Microsoft.EntityFrameworkCore;
-
+using X.PagedList;
 
 namespace DoAnAsp.Controllers
 {
@@ -28,7 +27,7 @@ namespace DoAnAsp.Controllers
             ViewBag.ListSPVivvo = _context.SanPhams.Where(sp => sp.TrangThai == 1 && sp.MaLoaiSP == 5).OrderBy(sp => sp.MaSP).ToList();
             ViewBag.ListSPoneplus = _context.SanPhams.Where(sp => sp.TrangThai == 1 && sp.MaLoaiSP == 8).OrderBy(sp => sp.MaSP).ToList();
             ViewBag.ListSPVimast = _context.SanPhams.Where(sp => sp.TrangThai == 1 && sp.MaLoaiSP == 9).OrderBy(sp => sp.MaSP).ToList();
-
+            ViewBag.listsp = _context.SanPhams.Where(sp => sp.TrangThai == 1).ToList();
             //sao nhiều
             ViewBag.ListSaoNhieu = _context.SanPhams.Where(sp => sp.TrangThai == 1).OrderByDescending(sp => sp.SoSao).Take(4).ToList();
 
@@ -51,15 +50,20 @@ namespace DoAnAsp.Controllers
         }
 
         
-        public IActionResult shop_grid()
+        public IActionResult shop_grid(int? page)
         {
             GetUser();
+            var ListSP = _context.SanPhams.Where(sp => sp.TrangThai == 1).ToList();
             var listLSP = _context.LoaiSPs.Where(lsp => lsp.TrangThai == 1).OrderBy(lsp => lsp.MaLoaiSP).ToList();
-            if(listLSP==null)
+            var pageSize = 9;
+            var PageNumber = page == null || page <=0 ? 1 : page.Value;
+            if (listLSP==null)
             { 
                 return NotFound();
             }
+            ViewBag.SP = ListSP.ToPagedList(PageNumber, pageSize);
             return View(listLSP);
+           
         }
         public IActionResult CheckOut()
         {
@@ -100,5 +104,6 @@ namespace DoAnAsp.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "ShopBanDT");
         }
+        
     }
 }

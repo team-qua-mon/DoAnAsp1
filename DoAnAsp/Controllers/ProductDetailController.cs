@@ -20,16 +20,19 @@ namespace DoAnAsp.Controllers
         }
         public void GetUser()
         {
-            JObject us = JObject.Parse(HttpContext.Session.GetString("user"));
-            NguoiDungModel ND = new NguoiDungModel();
-            ND.UserName = us.SelectToken("UserName").ToString();
-            ND.PassWord = us.SelectToken("PassWord").ToString();
-            ViewBag.ND = _context.NguoiDungs.Where(nd => nd.UserName == ND.UserName).ToList();
+            if (HttpContext.Session.GetString("user") != null)
+            {
+                JObject us = JObject.Parse(HttpContext.Session.GetString("user"));
+                NguoiDungModel ND = new NguoiDungModel();
+                ND.UserName = us.SelectToken("UserName").ToString();
+                ND.PassWord = us.SelectToken("PassWord").ToString();
+                ViewBag.ND = _context.NguoiDungs.Where(nd => nd.UserName == ND.UserName).ToList();
+            }
 
         }
         public async Task<IActionResult> ProductDetail(int? id)
         {
-            GetUser();
+                GetUser();
                 if (id == null)
                 {
                     return NotFound();
