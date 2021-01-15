@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using DoAnAsp.Areas.ADmin.Data;
@@ -55,6 +56,7 @@ namespace DoAnAsp.Controllers
 
             return View();
         }
+
         public void SetMessage(string Message, string type)
         {
             TempData["AlertMessage"] = Message;

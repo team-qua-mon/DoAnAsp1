@@ -552,31 +552,31 @@
                         </div>
                     </div>
                 </div>
+                
                 @foreach (var item in spkm)
-                    {
-                        <div class="single-list">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="list-image overlay">
-                                        <img src="~/Admin/ImgPro/@item.HinhAnh" alt="">
-                                        <a asp-controller="ProductDetail" asp-action="ProductDetail" asp-route-id="@item.MaSP" class="buy"><i class="fa fa-shopping-bag"></i></a>
+                { 
+                    <div class="single-list">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="list-image overlay">
+                                    <img src="~/Admin/ImgPro/@item.HinhAnh" alt="">
+                                    <a asp-controller="ProductDetail" asp-action="ProductDetail" asp-route-id="@item.MaSP" class="buy"><i class="fa fa-shopping-bag"></i></a>
 
-                                    </div>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-12 no-padding">
-                                    <div class="content pt-3">
-                                        <h5 class="title"><a asp-controller="ProductDetail" asp-action="ProductDetail" asp-route-id="@item.MaSP">@item.TenSP</a></h5>
-                                        <p class="price with-discount">@item.Gia</p>
-                                    </div>
-                                    <div class="content pt-3">
-                                        <p class="content pt-0">Discount</p>
-                                        <p class="price with-discount m-0">@item.KhuyenMai.GiaTri</p>
-                                    </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12 no-padding">
+                                <div class="content pt-3">
+                                    <h5 class="title"><a asp-controller="ProductDetail" asp-action="ProductDetail" asp-route-id="@item.MaSP">@item.TenSP</a></h5>
+                                    <p class="price with-discount">@item.Gia</p>
+                                </div>
+                                <div class="content pt-3">
+                                    <p class="content pt-0">Discount</p>
+                                    <p class="price with-discount m-0">@item.KhuyenMai.GiaTri</p>
                                 </div>
                             </div>
                         </div>
-
-                    }
+                    </div>
+                }
 
             </div>
             <div class="col-lg-4 col-md-6 col-12">
