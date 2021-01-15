@@ -30,6 +30,9 @@
                         <thead>
                             <tr>
                                 <th>
+                                    Chức Năng
+                                </th>
+                                <th>
                                     @Html.DisplayNameFor(model => model.Ho)
                                 </th>
                                 <th>
@@ -69,6 +72,15 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
+                                    <td>
+                                        <a class="btn btn-warning" onclick="showModal('@Url.Action("AddAndEdit","NguoiDung",new { id = item.MaND },Context.Request.Scheme)','Sửa người dùng')">Sửa</a>
+                                        <br />
+                                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.MaND">Chi Tiết</a>
+                                        <form asp-action="Delete" asp-route-id="@item.MaND" onsubmit="return jQueryAjaxDelete(this);">
+                                            <input type="hidden" asp-for="@item.MaND" />
+                                            <input type="submit" value="Xóa" class="btn btn-danger" />
+                                        </form>
+                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Ho)
                                     </td>
@@ -111,14 +123,7 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.PhanQuyens.TenQuyen)
                                     </td>
-                                    <td>
-                                        <a class="btn btn-danger" onclick="showModal('@Url.Action("AddAndEdit","NguoiDung",new { id = item.MaND },Context.Request.Scheme)','Sửa người dùng')">Sửa</a>
-                                        <a class="btn btn-danger" asp-action="Details" asp-route-id="@item.MaND">Details</a>
-                                        <form asp-action="Delete" asp-route-id="@item.MaND" onsubmit="return jQueryAjaxDelete(this);">
-                                            <input type="hidden" asp-for="@item.MaND" />
-                                            <input type="submit" value="Xóa" class="btn btn-success" />
-                                        </form>
-                                    </td>
+                                   
                                 </tr>
                             }
                         </tbody>

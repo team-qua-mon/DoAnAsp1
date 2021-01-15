@@ -24,8 +24,8 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         public async Task<IActionResult> Index(string Search)
         {
             GetUser();
-            
-            
+
+
             if (Search == null)
             {
                 var sp = _context.SanPhams.Where(u => u.TrangThai == 1).ToList();
@@ -39,6 +39,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
                 ViewBag.GiaTri = 1.ToString();
                 return View();
             }
+            
             return View();
         }
         public void GetUser()
@@ -74,6 +75,31 @@ namespace DoAnAsp.Areas.ADmin.Controllers
 
             ViewBag.SP = a.ToList();
         }
-    
+        //public void LSPDMN()
+        //{
+        //    var a = from lsp in _context.LoaiSPs
+        //            join sp in _context.SanPhams on lsp.MaLoaiSP equals sp.MaLoaiSP
+
+        //            where sp.TenSP == (
+        //                                from cthd in _context.ChiTietHoaDons
+        //                                join spa in _context.SanPhams on cthd.MaSP equals spa.MaSP
+        //                                join hd in _context.HoaDons on cthd.MaHD equals hd.MaHD
+        //                                select spa.TenSP
+        //                                ).FirstOrDefault()
+        //            group lsp by lsp.TenLSP into newname
+        //            select new {
+        //                TenSP = newname.Key,
+        //                Count = newname.Select(x => x.TenLSP).Distinct().Count()
+        //            };
+        //    ViewBag.LSPYT = a;
+        //}
+
+        //select TenLSP, COUNT(TenLSP)
+        //from SanPhams, LoaiSPs
+        //where SanPhams.MaLoaiSP = LoaiSPs.MaLoaiSP and TenSP in (select SanPhams.TenSP
+        //                from ChiTietHoaDons, HoaDons, SanPhams
+        //                where ChiTietHoaDons.MaHD = HoaDons.MaHD and SanPhams.MaSP = ChiTietHoaDons.MaSP)
+        //group by TenLSP
+        //order by COUNT(TenLSP) desc
     }
 }
