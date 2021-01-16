@@ -64,7 +64,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         }
         public async Task<IActionResult> Logout()
         {
-            HttpContext.Session.Clear();
+            HttpContext.Session.Remove("user");
             return RedirectToAction("loginIndex", "Login");
         }
         public void SetMessage(string Message, string type)

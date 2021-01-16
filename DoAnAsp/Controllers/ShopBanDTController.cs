@@ -152,7 +152,9 @@ namespace DoAnAsp.Controllers
                         dataCart.RemoveAt(i);
                     }
                 }
+                
                 HttpContext.Session.SetString("CartSeeion", JsonConvert.SerializeObject(dataCart));
+                HttpContext.Session.Remove("CartSeeion");
                 return RedirectToAction(nameof(Cart));
             }
             return RedirectToAction(nameof(Cart));
@@ -184,7 +186,7 @@ namespace DoAnAsp.Controllers
         }
         public async Task<IActionResult> Logout()
         {
-            HttpContext.Session.Clear();
+            HttpContext.Session.Remove("user");
             return RedirectToAction("Index", "ShopBanDT");
         }
         
