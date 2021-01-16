@@ -13,7 +13,7 @@
     var ListSPSale = (List<DoAnAsp.Areas.ADmin.Models.KhuyenMaiModel>)ViewBag.ListSPSale;
     var ListLSP = (List<DoAnAsp.Areas.ADmin.Models.LoaiSPModelcs>)ViewBag.ListLSP;
 
-    var spkm = ViewBag.spkm as List<DoAnAsp.Areas.ADmin.Models.SanPhamModel>;
+    var spkm = ViewBag.spkm as IEnumerable<DoAnAsp.Areas.ADmin.Models.KhuyenMaiModel>;
 
     var spsaphet= ViewBag.ListSPsaphet as List<DoAnAsp.Areas.ADmin.Models.SanPhamModel>;
 
@@ -33,8 +33,8 @@
                         <div class="row">
                             <div class="col-lg-7 col-12">
                                 <div class="hero-text">
-                                    <h1><span>UP TO 50% OFF </span>Shirt For Man</h1>
-                                    <p>Maboriosam in a nesciung eget magnae <br> dapibus disting tloctio in the find it pereri <br> odiy maboriosm.</p>
+                                    <h1><span>ĐẶT TRƯỚC </span>SAM SUNG GALAXY S20 SERIES 5G</h1>
+                                    @*<p>Maboriosam in a nesciung eget magnae <br> dapibus disting tloctio in the find it pereri <br> odiy maboriosm.</p>*@
                                     <div class="button">
                                         <a href="#" class="btn">Shop Now!</a>
                                     </div>
@@ -68,12 +68,12 @@
                     <div class="nav-main">
                         <!-- Tab Nav -->
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#man" role="tab">Samsum</a></li>
-                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#women" role="tab">Oppo</a></li>
-                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids" role="tab">Vivo</a></li>
+                            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#man" role="tab">Iphone</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#women" role="tab">Samsung</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids" role="tab">Oppo</a></li>
                             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#accessories" role="tab">Xiaomi</a></li>
-                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#essential" role="tab">OnePlus</a></li>
-                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#prices" role="tab">Vimasrt</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#essential" role="tab">Vsmart</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#prices" role="tab">Nokia</a></li>
                         </ul>
                         <!--/ End Tab Nav -->
                     </div>
@@ -105,7 +105,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="product-content">
-                                                    <h3><a href="product-details.html">@sanpham.TenSP</a></h3>
+                                                    <h3><a  asp-controller="ProductDetail" asp-action="ProductDetail" asp-route-id="@sanpham.MaSP">@sanpham.TenSP</a></h3>
                                                     <div class="product-price">
                                                         <span>@sanpham.Gia</span>
                                                     </div>
@@ -144,7 +144,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="product-content">
-                                                    <h3><a href="product-details.html">@item.TenSP</a></h3>
+                                                    <h3><a  asp-controller="ProductDetail" asp-action="ProductDetail" asp-route-id="@item.MaSP">@item.TenSP</a></h3>
                                                     <div class="product-price">
                                                         <span>@item.Gia</span>
                                                     </div>
@@ -181,7 +181,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="product-content">
-                                                    <h3><a href="product-details.html">@item.TenSP</a></h3>
+                                                    <h3><a  asp-controller="ProductDetail" asp-action="ProductDetail" asp-route-id="@item.MaSP">@item.TenSP</a></h3>
                                                     <div class="product-price">
                                                         <span>@item.Gia</span>
                                                     </div>
@@ -218,7 +218,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="product-content">
-                                                    <h3><a href="product-details.html">@item.TenSP</a></h3>
+                                                    <h3><a  asp-controller="ProductDetail" asp-action="ProductDetail" asp-route-id="@item.MaSP">@item.TenSP</a></h3>
                                                     <div class="product-price">
                                                         <span>@item.Gia</span>
                                                     </div>
@@ -255,7 +255,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="product-content">
-                                                    <h3><a href="product-details.html">@item.TenSP</a></h3>
+                                                    <h3><a  asp-controller="ProductDetail" asp-action="ProductDetail" asp-route-id="@item.MaSP">@item.TenSP</a></h3>
                                                     <div class="product-price">
                                                         <span>@item.Gia</span>
                                                     </div>
@@ -292,7 +292,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="product-content">
-                                                    <h3><a href="product-details.html">@item.TenSP</a></h3>
+                                                    <h3><a  asp-controller="ProductDetail" asp-action="ProductDetail" asp-route-id="@item.MaSP">@item.TenSP</a></h3>
                                                     <div class="product-price">
                                                         <span>@item.Gia</span>
                                                     </div>
@@ -520,19 +520,19 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-12">
                                 <div class="list-image overlay">
-                                    <img src="~/Admin/ImgPro/@item.HinhAnh" alt="">
-                                    <a onClick="alert('Thêm thành công sản phẩm @item.TenSP')" ; asp-controller="ShopBanDT" asp-action="AddCart" asp-route-id="@item.MaSP" class="buy"><i class="fa fa-shopping-bag"></i></a>
+                                    <img src="~/Admin/ImgPro/@item.SanPham.HinhAnh" alt="">
+                                    <a onClick="alert('Thêm thành công sản phẩm @item.SanPham.TenSP')" asp-controller="ShopBanDT" asp-action="AddCart" asp-route-id="@item.SanPham.MaSP" class="buy"><i class="fa fa-shopping-bag"></i></a>
 
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-12 no-padding">
                                 <div class="content pt-3">
-                                    <h5 class="title"><a asp-controller="ProductDetail" asp-action="ProductDetail" asp-route-id="@item.MaSP">@item.TenSP</a></h5>
-                                    <p class="price with-discount">@item.Gia</p>
+                                    <h5 class="title"><a asp-controller="ProductDetail" asp-action="ProductDetail" asp-route-id="@item.SanPham.MaSP">@item.SanPham.TenSP</a></h5>
+                                    <p class="price with-discount">@item.GiaTri</p>
                                 </div>
                                 <div class="content pt-3">
                                     <p class="content pt-0">Discount</p>
-                                    <p class="price with-discount m-0">@item.KhuyenMai.GiaTri</p>
+                                    <p class="price with-discount m-0">@item.GiaTri</p>
                                 </div>
                             </div>
                         </div>

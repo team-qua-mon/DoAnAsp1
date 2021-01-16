@@ -49,7 +49,7 @@ namespace DoAnAsp.Areas.ADmin.Models
         public string Andress { get; set; }
 
         //kiem tra trung username
-        [UniqueUserName]
+  
         [Required(ErrorMessage = "Vui Lòng Điền Đủ Thông Tin")]
         public string UserName{ get; set; }
 

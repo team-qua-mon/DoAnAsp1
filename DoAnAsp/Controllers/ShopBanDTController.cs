@@ -23,6 +23,7 @@ namespace DoAnAsp.Controllers
             _context = context;
         }
         public IActionResult Index()
+        
         {
             ViewBag.ListSPSamSung = _context.SanPhams.Where(sp => sp.TrangThai == 1 && sp.MaLoaiSP == 2).OrderBy(sp => sp.MaSP).ToList();
             ViewBag.ListSPOppo = _context.SanPhams.Where(sp => sp.TrangThai == 1 && sp.MaLoaiSP == 3).OrderBy(sp => sp.MaSP).ToList();
@@ -37,7 +38,7 @@ namespace DoAnAsp.Controllers
             ViewBag.ListSaoNhieu = _context.SanPhams.Where(sp => sp.TrangThai == 1).OrderByDescending(sp => sp.SoSao).Take(4).ToList();
 
             //Đang giảm giá
-            ViewBag.spkm = _context.SanPhams.Where(p => p.TrangThai == 1).Include(s => s.KhuyenMai).OrderByDescending(x=>x.KhuyenMai.GiaTri).Take(4).ToList();
+            ViewBag.spkm = _context.KhuyenMais.Where(s => s.TrangThai == 1).Include(s => s.SanPham).OrderByDescending(s => s.GiaTri).Take(4).ToList();
 
             
             //loại sản phẩm

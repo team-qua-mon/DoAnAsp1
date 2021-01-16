@@ -62,13 +62,7 @@
 
                     </div>
                     <div class="col-lg-6 col-12">
-                        <h5 class="title">Color</h5>
-                        <select>
-                            <option selected="selected">orange</option>
-                            <option>purple</option>
-                            <option>black</option>
-                            <option>pink</option>
-                        </select>
+                        
                     </div>
                 </div>
             </div>
@@ -90,7 +84,7 @@
                 <!--/ End Input Order -->
             </div>
             <div class="add-to-cart">
-                <a href="#" class="btn">Add to cart</a>
+                <a onClick="alert('Thêm thành công sản phẩm @Model.TenSP')" ; asp-controller="ShopBanDT" asp-action="AddCart" asp-route-id="@Model.MaSP" class="btn">Add to cart</a>
                 <a href="#" class="btn min"><i class="ti-heart"></i></a>
                 <a href="#" class="btn min"><i class="fa fa-compress"></i></a>
             </div>

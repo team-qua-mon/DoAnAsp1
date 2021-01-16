@@ -1214,11 +1214,11 @@ Version:1.0
 }
 .hero-slider .single-slider {
 	height: auto;
-	background-image: url('../images/ICC-img-1900x700-01.jpg');
-	background-size: cover;
+	background-image: url('../../Admin/ImgPro/S21-800-300-800x300-1.png');
+	background-size: contain;
 	background-position: center;
 	background-repeat: no-repeat;
-    height: 510px;
+
 }
 .hero-slider .text-inner {
 	

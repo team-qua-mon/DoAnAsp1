@@ -51,6 +51,7 @@ namespace DoAnAsp.Areas.ADmin.Controllers
         // GET: ADmin/KhuyenMai/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            GetUser();
             if (id == null)
             {
                 return NotFound();
